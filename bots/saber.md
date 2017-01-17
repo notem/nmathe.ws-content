@@ -1,6 +1,6 @@
 ---
 Title: Saber
-Description: Under Construction
+Description: A Calendar/Schedule Manager Discord Bot
 Hiding: 1
 ---
 
@@ -17,7 +17,7 @@ Hiding: 1
 + Setup notification with custom message leading up to the start of an event
 + Sync with Google Calendar
 
-[Invite to Discord](https://discordapp.com/api/oauth2/authorize?client_id=250801603630596100&scope=bot&permissions=0) | [Saber on GitHub](http://nmathe.ws)
+[Invite to Discord](https://discordapp.com/api/oauth2/authorize?client_id=250801603630596100&scope=bot&permissions=0) | [Saber on GitHub](https://github.com/notem/Saber-Bot)
 
 <div style="overflow:auto;"> 
 <table>
@@ -34,7 +34,7 @@ Hiding: 1
     </tr>
     <tr>
       <td>s/edit</td>
-      <td>Modifies an schedule entry, either changing parameters or adding/removing comment fields.</td>
+      <td>Modifies a schedule entry, either changing parameters or adding/removing comment fields.</td>
       <td>s/edit 129c start 10:30am</td>
     </tr>
     <tr>

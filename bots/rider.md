@@ -19,7 +19,7 @@ Hiding: 1
 + Send me suggestions!
 
 
-[Invite to Discord](https://discordapp.com/oauth2/authorize?permissions=268512256&client_id=268111500718243840&scope=bot) | [Rider on GitHub](http://nmathe.ws)
+[Invite to Discord](https://discordapp.com/oauth2/authorize?permissions=268512256&client_id=268111500718243840&scope=bot) | [Rider on GitHub](https://github.com/notem/Rider-Bot)
 
 <table>
   <thead>
