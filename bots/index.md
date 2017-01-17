@@ -1,6 +1,6 @@
 ---
-Title: Fate/Bots
-Description: Listing of discord bots I develop
+Title: Discord Bots
+Description: Listing of my discord bots
 ---
 
 ## Fate / Bots
