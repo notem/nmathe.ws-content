@@ -69,7 +69,14 @@ Hiding: 1
 </table>
 </div>
 
+* * *
+* * *
+* * *
+
+
 ## User Docs
+
+* * *
 
 ### Server Setup
 
@@ -80,6 +87,9 @@ When Discord App implements categories for channels, any channel that is a part 
 Scheduling channels require saber be given some permissions, which should already have been requested if Saber joined your server using the above oath link.
 
 In addition to schedule channels, Saber bot is configured to listen for scheduling commands only on a dedicated channel.  Create a channel with the name "saber_control," and allow Saber to view and send messages to it.
+
+* * *
+* * *
 
 ### Command Usage
 
@@ -100,6 +110,8 @@ For each of the following commands, \<text> denotes a required argument and [tex
   * Ex2. ``!create "#event_channel Reminders" "Sign up for Raids" 4:00pm 4:00pm``
   * Ex3. ``!create "#event_channel Raids" "Weekly Raid Event" 7:00pm 12:00pm repeat "Fr,Sa" "Healers and tanks always in demand." "DM @RaidCaptain with your role and level if attending."``
   
+  * * *
+  
 + ``!edit <id> <title|start|end|date|repeat|comment> <changes>``
 
   This command can be used to change any parameter of an event given the event's ID. The first argument is always the event ID, the second argument is the parameter you wish to change, and the third argument what the parameter should be changed to. 
@@ -111,9 +123,13 @@ For each of the following commands, \<text> denotes a required argument and [tex
   * Ex3: ``!edit 49af end 2:15pm``
   * Ex4: ``!edit 80c0 comment remove 1``
   
+  * * *
+  
 + ``!destroy <id|all>``
 
   This command can be used to delete an event. Passing the event ID as the first argument will delete the individual event; passing the word 'all' will result in the deletion of every scheduled event on the server. **This command is likely to be revised soon**
+  
+  * * *
   
 + ``!set <#channel> <msg|chan|zone|clock|style|sync> <new_config>``
 
@@ -123,43 +139,65 @@ For each of the following commands, \<text> denotes a required argument and [tex
   * Ex2: ``!set chan #general``
   * Ex3: ``!set clock 12``
   
+  * * *
+  
 + ``!sync <#channel> <calendar address>``
 
   This command will replace all events in the specified channel with events imported from a public google calendar. Up to the next 7 days of events will be imported. To learn more, see the **Sync'ing a Channel with a Google Calendar** guide below.
   
   * Ex: ``!sync #schedule_entries g.rit.edu_g4elai703tm3p4iimp10g8heig@group.calendar.google.com``
+  
+  * * *
 
 + ``!timezones [filter]``
 
   This command will output the list of all valid timezones that can be set with the ``set`` command. The raw output can be overwhelming. Output can be filtered by providing one argument to the command to filter for all zones which contain the word provided. For both our sakes, use a filter."
   
+  * * *
+  
 + ``!help [command]``
 
   Direct messages the user a list of commands that can be used in Saber's dedicated control channel. If a command is supplied as the optional first argument, additional usage information for that command is provided.
   
+  * * *
+  
 + ``!setup``
 
   The only purpose of this command is to direct message the user of the command a 'brief' walkthrough as to how to setup Saber bot.  **Likely to be removed soon**
+
+* * *
+* * *
 
 ### Sync'ing a Channel with a Google Calendar
 
 1. Create a public calendar with Google Calendar. To set the calendar public, you should find a sharing setting near that looks something like this: 
 
  <img src="https://nmathe.ws/assets/MakePublic.JPG" alt="Make calendar public" style="max-width:80%;">
+ 
+ * * *
 
 2. (optional) If you already have a calendar setup, but not yet made it public, you can toggle the calendar's share settings in the 'Calendar settings'>>'Share this calendar tab' It should look something like this: 
 
   <img src="https://nmathe.ws/assets/ChangeShareSettings.JPG" alt="Change calendar share settings" style="max-width:80%;">
+  
+  * * *
 
 3. Next, you'll need to find the calendar's public address.  The calendar's public address is listed near the end in the calendar's settings webpage under the 'Calendar details' tab. It should look something like this: 
   
  <img src="https://nmathe.ws/assets/PublicAddress.JPG" alt="Your calendar's public address" style="max-width:80%;">
+ 
+ * * *
 
 4. Finally, use the ``!sync [channel] [address]`` command in your discord server's saber_control channel to sync the events in your public calendar to the Saber schedule channel. 
   
   The timer is automatically setup to resync the channel to your calendar once every day. However, if changes are made to the Google Calendar the channel will not show such changes until resync. Either wait until auto-sync, or reuse the ``sync`` command.
+  
+   * * *
 
 5. If you wish to unsync the channel from your google calendar, use the ``set`` command (ex. ``!set sync off``).
+
+* * *
+* * *
 
 ### Channel Settings Options
 
