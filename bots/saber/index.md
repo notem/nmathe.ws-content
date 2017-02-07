@@ -110,7 +110,7 @@ For each of the following commands, \<text> denotes a required argument and [tex
   * Ex2. ``!create "#event_channel Reminders" "Sign up for Raids" 4:00pm 4:00pm``
   * Ex3. ``!create "#event_channel Raids" "Weekly Raid Event" 7:00pm 12:00pm repeat "Fr,Sa" "Healers and tanks always in demand." "DM @RaidCaptain with your role and level if attending."``
   
-  * * *
+  ***
   
 + ``!edit <id> <title|start|end|date|repeat|comment> <changes>``
 
@@ -123,13 +123,13 @@ For each of the following commands, \<text> denotes a required argument and [tex
   * Ex3: ``!edit 49af end 2:15pm``
   * Ex4: ``!edit 80c0 comment remove 1``
   
-  * * *
+  ***
   
 + ``!destroy <id|all>``
 
   This command can be used to delete an event. Passing the event ID as the first argument will delete the individual event; passing the word 'all' will result in the deletion of every scheduled event on the server. **This command is likely to be revised soon**
   
-  * * *
+  ***
   
 + ``!set <#channel> <msg|chan|zone|clock|style|sync> <new_config>``
 
@@ -139,7 +139,7 @@ For each of the following commands, \<text> denotes a required argument and [tex
   * Ex2: ``!set chan #general``
   * Ex3: ``!set clock 12``
   
-  * * *
+  ***
   
 + ``!sync <#channel> <calendar address>``
 
@@ -147,13 +147,13 @@ For each of the following commands, \<text> denotes a required argument and [tex
   
   * Ex: ``!sync #schedule_entries g.rit.edu_g4elai703tm3p4iimp10g8heig@group.calendar.google.com``
   
-  * * *
+  ***
 
 + ``!timezones [filter]``
 
   This command will output the list of all valid timezones that can be set with the ``set`` command. The raw output can be overwhelming. Output can be filtered by providing one argument to the command to filter for all zones which contain the word provided. For both our sakes, use a filter."
   
-  * * *
+  ***
   
 + ``!help [command]``
 
@@ -165,8 +165,8 @@ For each of the following commands, \<text> denotes a required argument and [tex
 
   The only purpose of this command is to direct message the user of the command a 'brief' walkthrough as to how to setup Saber bot.  **Likely to be removed soon**
 
-* * *
-* * *
+***
+***
 
 ### Sync'ing a Channel with a Google Calendar
 
