@@ -145,17 +145,15 @@ For each of the following commands, \<text> denotes a required argument and [tex
 
 1. Create a public calendar with Google Calendar. To set the calendar public, you should find a sharing setting near that looks something like this: 
 
- ![Make calendar public](%base_url%/assets/MakePublic.JPG =400px)
+ <img src="https://nmathe.ws/assets/MakePublic.JPG" alt="Make calendar public" style="max-width:80%;">
 
 2. (optional) If you already have a calendar setup, but not yet made it public, you can toggle the calendar's share settings in the 'Calendar settings'>>'Share this calendar tab' It should look something like this: 
 
- ![Change calendar share settings](%base_url%/assets/ChangeShareSettings.JPG =250px)
+  <img src="https://nmathe.ws/assets/ChangeShareSettings.JPG" alt="Change calendar share settings" style="max-width:80%;">
 
 3. Next, you'll need to find the calendar's public address.  The calendar's public address is listed near the end in the calendar's settings webpage under the 'Calendar details' tab. It should look something like this: 
-
- ![Location of calendar settings](%base_url%/assets/CalendarSettings.JPG =300px)
   
- ![Your calendar's public address](%base_url%/assets/PublicAddress.JPG =400px)
+ <img src="https://nmathe.ws/assets/PublicAddress.JPG" alt="Your calendar's public address" style="max-width:80%;">
 
 4. Finally, use the ``!sync [channel] [address]`` command in your discord server's saber_control channel to sync the events in your public calendar to the Saber schedule channel. 
   
