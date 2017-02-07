@@ -24,7 +24,7 @@ Hiding: 1
 + User experience improvements, and automated setup
 + Character limits on user input
 
-[Invite to Discord](https://discordapp.com/api/oauth2/authorize?client_id=250801603630596100&scope=bot&permissions=76800) | [Saber on GitHub](https://github.com/notem/Saber-Bot) | [Support Server](https://discord.gg/NcmqF)
+[Invite to Discord](https://discordapp.com/api/oauth2/authorize?client_id=250801603630596100&scope=bot&permissions=76800) | [Saber on GitHub](https://github.com/notem/Saber-Bot) | [Saber Support Server](https://discord.gg/NcmqF)
 
 <div style="overflow:auto;"> 
 <table>
@@ -145,17 +145,17 @@ For each of the following commands, \<text> denotes a required argument and [tex
 
 1. Create a public calendar with Google Calendar. To set the calendar public, you should find a sharing setting near that looks something like this: 
 
- ![Make calendar public](%base_url%/saber/images/MakePublic.JPG)
+ ![Make calendar public](%base_url%/assets/MakePublic.JPG =400px)
 
 2. (optional) If you already have a calendar setup, but not yet made it public, you can toggle the calendar's share settings in the 'Calendar settings'>>'Share this calendar tab' It should look something like this: 
 
- ![Change calendar share settings](%base_url%/saber/images/ChangeShareSettings.JPG)
+ ![Change calendar share settings](%base_url%/assets/ChangeShareSettings.JPG =250px)
 
 3. Next, you'll need to find the calendar's public address.  The calendar's public address is listed near the end in the calendar's settings webpage under the 'Calendar details' tab. It should look something like this: 
 
- ![Location of calendar settings](%base_url%/saber/images/CalendarSettings.JPG)
+ ![Location of calendar settings](%base_url%/assets/CalendarSettings.JPG =300px)
   
- ![Your calendar's public address](%base_url%/saber/images/PublicAddress.JPG)
+ ![Your calendar's public address](%base_url%/assets/PublicAddress.JPG =400px)
 
 4. Finally, use the ``!sync [channel] [address]`` command in your discord server's saber_control channel to sync the events in your public calendar to the Saber schedule channel. 
   
@@ -213,9 +213,29 @@ Every schedule channel is configured with it's own message to announce to a spec
 Saber will announce the message string verbatum unless a '%' character is encountered.  When a '%' character is encountered, Saber will read the next character(s) and substitute the token with whatever value is associated that character combination.
 
 **Suggestions / requests / complaints regarding this custom message system are very much welcome!**
-
-| token | What is substituted in| Example msg : possible results
-|----------:|----------:|-----:
-| %t        | Title of event announced | ``@here Event: %t`` : ``@here Event: PoE Cut-throat League``
-| %c``x``   | The ``x``th comment of the event | ``@everyone %c1`` : ``@everyone Dont forget to signup for our weekly raids!``
-| %a        | ``begins`` or ``ends`` or `` `` | ``@here %t %a`` : ``@here PoE Cut-throat League begins``
+<div style="overflow:auto;"> 
+<table>
+  <thead>
+    <th>'%' token</th>
+    <th>Text Substituted in</th>
+    <th>Example msg : Possible Results</th>
+  </thead>
+  <tbody>
+    <tr>
+      <td>%t</td>
+      <td>Title of event announced</td>
+      <td>``@here Event: %t`` : ``@here Event: PoE Cut-throat League``</td>
+    </tr>
+    <tr>
+      <td>%c[x]</td>
+      <td>The [x]th comment of the event</td>
+      <td>``@everyone %c1`` : ``@everyone Dont forget to signup for our weekly raids!``</td>
+    </tr>
+    <tr>
+      <td>%a</td>
+      <td>``begins`` or ``ends`` or `` ``</td>
+      <td>``@here %t %a`` : ``@here PoE Cut-throat League begins``</td>
+    </tr>
+  </tbody>
+</table>
+</div>
