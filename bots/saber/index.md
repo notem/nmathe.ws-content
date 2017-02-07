@@ -22,6 +22,7 @@ Hiding: 1
 + Dynamically sort entries in a channel w/ the top-most entry having the earliest start time
 + More options for custom messages
 + User experience improvements, and automated setup
++ Character limits on user input
 
 [Invite to Discord](https://discordapp.com/api/oauth2/authorize?client_id=250801603630596100&scope=bot&permissions=76800) | [Saber on GitHub](https://github.com/notem/Saber-Bot) | [Support Server](https://discord.gg/NcmqF)
 
@@ -68,6 +69,8 @@ Hiding: 1
 </table>
 </div>
 
+## User Docs
+
 ### Server Setup
 
 Saber bot is designed to save events of schedule on dedicated "schedule channels." 
@@ -94,14 +97,19 @@ For each of the following commands, \<text> denotes a required argument and [tex
   Entries can optionally be configured with comments, event repeat settings, and/or to begin on a specific date.
   
   * Ex1. ``!create #event_schedule "Party in the Guild Hall" 19:00 2:00 date 04/10`` 
-  
   * Ex2. ``!create "#event_channel Reminders" "Sign up for Raids" 4:00pm 4:00pm``
-  
   * Ex3. ``!create "#event_channel Raids" "Weekly Raid Event" 7:00pm 12:00pm repeat "Fr,Sa" "Healers and tanks always in demand." "DM @RaidCaptain with your role and level if attending."``
   
 + ``!edit <id> <title|start|end|date|repeat|comment> <changes>``
 
-  This command can be used to change any parameter of an event given the event's ID. The first argument is always the event ID, the second argument is the parameter you wish to change, and the third argument what the parameter should be changed to. ``comment`` is the only exception to this rule.  When 'comment' is the second argument, the third argument needs to be either 'add' or 'remove', and the fourth argument should either be the new comment to add or the number of the comment to remove.
+  This command can be used to change any parameter of an event given the event's ID. The first argument is always the event ID, the second argument is the parameter you wish to change, and the third argument what the parameter should be changed to. 
+  
+  ``comment`` is the only exception to this rule.  When 'comment' is the second argument, the third argument needs to be either 'add' or 'remove', and the fourth argument should either be the new comment to add or the number of the comment to remove.
+  
+  * Ex1: ``!edit 3fa0 comment add "Attendance is mandatory"``
+  * Ex2: ``!edit 0abf start 21:15``
+  * Ex3: ``!edit 49af end 2:15pm``
+  * Ex4: ``!edit 80c0 comment remove 1``
   
 + ``!destroy <id|all>``
 
@@ -109,11 +117,17 @@ For each of the following commands, \<text> denotes a required argument and [tex
   
 + ``!set <#channel> <msg|chan|zone|clock|style|sync> <new_config>``
 
-  On every schedule channel the last message on the channel should contain a collection of configurable settings for the schedule. This command may be used to reconfigure those settings.
+  On every schedule channel the last message on the channel should contain a collection of configurable settings for the schedule. This command may be used to reconfigure those settings.  When changing a channel's settings, the displayed timers may be wiped.  Use the ``!init`` command as a temporary solution.
+  
+  * Ex1: ``!set msg "@here The event %t %a."``
+  * Ex2: ``!set chan #general``
+  * Ex3: ``!set clock 12``
   
 + ``!sync <#channel> <calendar address>``
 
   This command will replace all events in the specified channel with events imported from a public google calendar. Up to the next 7 days of events will be imported. To learn more, see the **Sync'ing a Channel with a Google Calendar** guide below.
+  
+  * Ex: ``!sync #schedule_entries g.rit.edu_g4elai703tm3p4iimp10g8heig@group.calendar.google.com``
 
 + ``!timezones [filter]``
 
@@ -131,22 +145,77 @@ For each of the following commands, \<text> denotes a required argument and [tex
 
 1. Create a public calendar with Google Calendar. To set the calendar public, you should find a sharing setting near that looks something like this: 
 
-  [img]
+ ![Make calendar public](%base_url%/saber/images/MakePublic.JPG)
 
 2. (optional) If you already have a calendar setup, but not yet made it public, you can toggle the calendar's share settings in the 'Calendar settings'>>'Share this calendar tab' It should look something like this: 
 
-  [img]
+ ![Change calendar share settings](%base_url%/saber/images/ChangeShareSettings.JPG)
 
 3. Next, you'll need to find the calendar's public address.  The calendar's public address is listed near the end in the calendar's settings webpage under the 'Calendar details' tab. It should look something like this: 
 
-  [img] 
+ ![Location of calendar settings](%base_url%/saber/images/CalendarSettings.JPG)
   
-  [img]
+ ![Your calendar's public address](%base_url%/saber/images/PublicAddress.JPG)
 
 4. Finally, use the ``!sync [channel] [address]`` command in your discord server's saber_control channel to sync the events in your public calendar to the Saber schedule channel. 
-
-  [img]
   
   The timer is automatically setup to resync the channel to your calendar once every day. However, if changes are made to the Google Calendar the channel will not show such changes until resync. Either wait until auto-sync, or reuse the ``sync`` command.
 
 5. If you wish to unsync the channel from your google calendar, use the ``set`` command (ex. ``!set sync off``).
+
+### Channel Settings Options
+
+<div style="overflow:auto;"> 
+<table>
+  <thead>
+    <th>Setting</th>
+    <th>Purpose</th>
+    <th>Options</th>
+  </thead>
+  <tbody>
+    <tr>
+      <td>zone</td>
+      <td>The timezone to use for events on the channel</td>
+      <td>Use the timezones command</td>
+    </tr>
+    <tr>
+      <td>msg</td>
+      <td>The message that is announced on the start and end of an event</td>
+      <td>The '%'character may be used to insert event specific text, see below.</td>
+    </tr>
+    <tr>
+      <td>chan</td>
+      <td>The channel to which announcement messages are sent</td>
+      <td>The name of any channel. An invalid channel name will cause no announcement to be sent</td>
+    </tr>
+    <tr>
+      <td>clock</td>
+      <td>The hour format to display the start and end times of events</td>
+      <td>For 12 hour format use '12', for 24 hour format use '24'</td>
+    </tr>
+    <tr>
+      <td>style</td>
+      <td>The style in which the events on the schedule are displayed</td>
+      <td>The default is 'embed', use 'plain' if you'd rather use the legacy code-style.</td>
+    </tr>
+    <tr>
+      <td>sync</td>
+      <td>The Calendar address that the channel is set to sync too</td>
+      <td>A valid address, anything else will result in 'off'</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+#### Setting Custom Announce Message
+Every schedule channel is configured with it's own message to announce to a specified channel when an event begins or ends. With the ``set`` command the message can be configured.
+
+Saber will announce the message string verbatum unless a '%' character is encountered.  When a '%' character is encountered, Saber will read the next character(s) and substitute the token with whatever value is associated that character combination.
+
+**Suggestions / requests / complaints regarding this custom message system are very much welcome!**
+
+| token | What is substituted in| Example msg : possible results
+|----------:|----------:|-----:
+| %t        | Title of event announced | ``@here Event: %t`` : ``@here Event: PoE Cut-throat League``
+| %c``x``   | The ``x``th comment of the event | ``@everyone %c1`` : ``@everyone Dont forget to signup for our weekly raids!``
+| %a        | ``begins`` or ``ends`` or `` `` | ``@here %t %a`` : ``@here PoE Cut-throat League begins``
