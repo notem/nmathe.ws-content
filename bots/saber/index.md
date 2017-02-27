@@ -3,6 +3,17 @@ Title: Saber
 Description: A Calendar/Schedule Manager Discord Bot
 Hiding: 1
 ---
+### ALERT: Development on Saber-bot has been halted. Instead, I'll be working the [G4M3R discord bot](https://github.com/pedall/G4M3R) for the time being. However, I will continue to provide hosting for the bot.
+
+### Current Issues
+
++ Getting rate limited by Discord causes all maner of issues.
++ NULL pointer exception encountered in some rare instances of calendar sync'ing
++ Various, intermitten concurrency issues on guild leave, schedule checking, and bot schedule reloading.
+
+In general Saber-bot struggles to handle schedule management simultaneously for many discord servers. Some of my core design choices (No backend db, reloading of schedules and channel settings on startup) are deeply flawed and require a major rework. Unfortunately, I cannot currently devote the time necessary to do these revisions. I will likely return to finish up this project sometime in the future (assuming other discord scheduling utilities haven't replaced it's need).
+
+***
 
 ## Saber bot
 
@@ -69,14 +80,9 @@ Hiding: 1
 </table>
 </div>
 
-* * *
-* * *
-* * *
-
+<br><br><br>
 
 ## User Docs
-
-* * *
 
 ### Server Setup
 
@@ -88,8 +94,7 @@ Scheduling channels require saber be given some permissions, which should alread
 
 In addition to schedule channels, Saber bot is configured to listen for scheduling commands only on a dedicated channel.  Create a channel with the name "saber_control," and allow Saber to view and send messages to it.
 
-* * *
-* * *
+<br>
 
 ### Command Usage
 
@@ -165,8 +170,7 @@ For each of the following commands, \<text> denotes a required argument and [tex
 
   The only purpose of this command is to direct message the user of the command a 'brief' walkthrough as to how to setup Saber bot.  **Likely to be removed soon**
 
-***
-***
+<br>
 
 ### Sync'ing a Channel with a Google Calendar
 
@@ -196,8 +200,7 @@ For each of the following commands, \<text> denotes a required argument and [tex
 
 5. If you wish to unsync the channel from your google calendar, use the ``set`` command (ex. ``!set sync off``).
 
-* * *
-* * *
+<br>
 
 ### Channel Settings Options
 
@@ -260,17 +263,17 @@ Saber will announce the message string verbatum unless a '%' character is encoun
     <tr>
       <td>%t</td>
       <td>Title of event announced</td>
-      <td>``@here Event: %t`` : ``@here Event: PoE Cut-throat League``</td>
+      <td><code>@here Event: %t</code> : <code>@here Event: PoE Cut-throat League</code></td>
     </tr>
     <tr>
       <td>%c[x]</td>
       <td>The [x]th comment of the event</td>
-      <td>``@everyone %c1`` : ``@everyone Dont forget to signup for our weekly raids!``</td>
+      <td><code>@everyone %c1</code> : <code>@everyone Dont forget to signup for our weekly raids!</code></td>
     </tr>
     <tr>
       <td>%a</td>
-      <td>``begins`` or ``ends`` or `` ``</td>
-      <td>``@here %t %a`` : ``@here PoE Cut-throat League begins``</td>
+      <td>"begins" or "ends" or ""</td>
+      <td><code>@here %t %a</code> : <code>@here PoE Cut-throat League begins</code></td>
     </tr>
   </tbody>
 </table>
