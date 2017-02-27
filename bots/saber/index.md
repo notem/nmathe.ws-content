@@ -84,6 +84,8 @@ In general Saber-bot struggles to handle schedule management simultaneously for 
 
 ## User Docs
 
+<br>
+
 ### Server Setup
 
 Saber bot is designed to save events of schedule on dedicated "schedule channels." 
@@ -102,6 +104,8 @@ Saber commands are of the form ``!command <arguments>``; an argument is any spac
 
 Here's an example : ``!create #event_schedule "Rampage on Monday" 8:00am 9:00pm``. Saber will parse out four tokens from that command: ``#event_schedule``, ``Rampage on Monday``, ``8:00am``, and ``9:00pm``.
 
+<br>
+
 #### All Commands
 For each of the following commands, \<text> denotes a required argument and [text] denotes optional arguments.
 
@@ -114,9 +118,7 @@ For each of the following commands, \<text> denotes a required argument and [tex
   * Ex1. ``!create #event_schedule "Party in the Guild Hall" 19:00 2:00 date 04/10`` 
   * Ex2. ``!create "#event_channel Reminders" "Sign up for Raids" 4:00pm 4:00pm``
   * Ex3. ``!create "#event_channel Raids" "Weekly Raid Event" 7:00pm 12:00pm repeat "Fr,Sa" "Healers and tanks always in demand." "DM @RaidCaptain with your role and level if attending."``
-  
-  ***
-  
+    
 + ``!edit <id> <title|start|end|date|repeat|comment> <changes>``
 
   This command can be used to change any parameter of an event given the event's ID. The first argument is always the event ID, the second argument is the parameter you wish to change, and the third argument what the parameter should be changed to. 
@@ -127,15 +129,11 @@ For each of the following commands, \<text> denotes a required argument and [tex
   * Ex2: ``!edit 0abf start 21:15``
   * Ex3: ``!edit 49af end 2:15pm``
   * Ex4: ``!edit 80c0 comment remove 1``
-  
-  ***
-  
+    
 + ``!destroy <id|all>``
 
   This command can be used to delete an event. Passing the event ID as the first argument will delete the individual event; passing the word 'all' will result in the deletion of every scheduled event on the server. **This command is likely to be revised soon**
-  
-  ***
-  
+    
 + ``!set <#channel> <msg|chan|zone|clock|style|sync> <new_config>``
 
   On every schedule channel the last message on the channel should contain a collection of configurable settings for the schedule. This command may be used to reconfigure those settings.  When changing a channel's settings, the displayed timers may be wiped.  Use the ``!init`` command as a temporary solution.
@@ -143,29 +141,21 @@ For each of the following commands, \<text> denotes a required argument and [tex
   * Ex1: ``!set msg "@here The event %t %a."``
   * Ex2: ``!set chan #general``
   * Ex3: ``!set clock 12``
-  
-  ***
-  
+    
 + ``!sync <#channel> <calendar address>``
 
   This command will replace all events in the specified channel with events imported from a public google calendar. Up to the next 7 days of events will be imported. To learn more, see the **Sync'ing a Channel with a Google Calendar** guide below.
   
   * Ex: ``!sync #schedule_entries g.rit.edu_g4elai703tm3p4iimp10g8heig@group.calendar.google.com``
   
-  ***
-
 + ``!timezones [filter]``
 
   This command will output the list of all valid timezones that can be set with the ``set`` command. The raw output can be overwhelming. Output can be filtered by providing one argument to the command to filter for all zones which contain the word provided. For both our sakes, use a filter."
-  
-  ***
-  
+    
 + ``!help [command]``
 
   Direct messages the user a list of commands that can be used in Saber's dedicated control channel. If a command is supplied as the optional first argument, additional usage information for that command is provided.
-  
-  * * *
-  
+    
 + ``!setup``
 
   The only purpose of this command is to direct message the user of the command a 'brief' walkthrough as to how to setup Saber bot.  **Likely to be removed soon**
@@ -178,26 +168,18 @@ For each of the following commands, \<text> denotes a required argument and [tex
 
  <img src="https://nmathe.ws/assets/MakePublic.JPG" alt="Make calendar public" style="max-width:80%;">
  
- * * *
-
 2. (optional) If you already have a calendar setup, but not yet made it public, you can toggle the calendar's share settings in the 'Calendar settings'>>'Share this calendar tab' It should look something like this: 
 
   <img src="https://nmathe.ws/assets/ChangeShareSettings.JPG" alt="Change calendar share settings" style="max-width:80%;">
   
-  * * *
-
 3. Next, you'll need to find the calendar's public address.  The calendar's public address is listed near the end in the calendar's settings webpage under the 'Calendar details' tab. It should look something like this: 
   
  <img src="https://nmathe.ws/assets/PublicAddress.JPG" alt="Your calendar's public address" style="max-width:80%;">
  
- * * *
-
 4. Finally, use the ``!sync [channel] [address]`` command in your discord server's saber_control channel to sync the events in your public calendar to the Saber schedule channel. 
   
   The timer is automatically setup to resync the channel to your calendar once every day. However, if changes are made to the Google Calendar the channel will not show such changes until resync. Either wait until auto-sync, or reuse the ``sync`` command.
   
-   * * *
-
 5. If you wish to unsync the channel from your google calendar, use the ``set`` command (ex. ``!set sync off``).
 
 <br>
@@ -246,10 +228,14 @@ For each of the following commands, \<text> denotes a required argument and [tex
 </table>
 </div>
 
+<br>
+
 #### Setting Custom Announce Message
 Every schedule channel is configured with it's own message to announce to a specified channel when an event begins or ends. With the ``set`` command the message can be configured.
 
 Saber will announce the message string verbatum unless a '%' character is encountered.  When a '%' character is encountered, Saber will read the next character(s) and substitute the token with whatever value is associated that character combination.
+
+<br>
 
 **Suggestions / requests / complaints regarding this custom message system are very much welcome!**
 <div style="overflow:auto;"> 
