@@ -3,9 +3,13 @@ Title: Discord Bots
 Description: Listing of my discord bots
 ---
 
-## Fate / Bots
+## Active Development
 
-Fate / Bots is a series of bots aiming to fill the gaps in functionality that exist between the popular multi-function discord bots. These bots are designed to fulfil a single purpose, and fulfil that purpose well. If there exists a role that none of the popular bots fill, get in contact with me and I'd be happy to craft a bot with your need in mind.
+### [G4M3R](https://github.com/pedall/G4M3R)
+
+//TODO
+
+## On Haitus
 
 ### [Saber](http://nmathe.ws/bots/saber "Saber bot") 
 
