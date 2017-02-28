@@ -5,11 +5,15 @@ Description: Listing of my discord bots
 
 ## Active Development
 
-### [G4M3R](https://github.com/pedall/G4M3R)
+### [G4M3R](https://github.com/pedall/G4M3R) @ [g4m3r.xyz](https://g4m3r.xyz)
 
-//TODO
+G4M3R bot is a gaming community-oriented bot which aims to provide discord communities with the tools to plan events, organize tournaments, and connect with other Discord communities.  
 
-## On Haitus
+For the most part G4M3R-bot will supercede my own bots, providing both event scheduling and group forming features. With it's interactive command system and Express based web interface, I believe G4M3R has great potential as a community tool.
+
+G4M3R is a derivative of the (now defunct) [AwesomeBot project](https://github.com/BitQuote/AwesomeBot). G4M3R is developed using the Node.js runtime environment.
+
+## On Haitus / Development Suspended
 
 ### [Saber](http://nmathe.ws/bots/saber "Saber bot") 
 
