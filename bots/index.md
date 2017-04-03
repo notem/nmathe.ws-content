@@ -19,6 +19,8 @@ Saber is developed in Java 8 with the JDA discord api. This bot is currently bei
 
 > Rider is developed in Java 8 with the JDA discord api. I am no longer hosting an instance of this bot.
 
+<br />
+
 ### [G4M3R](https://github.com/pedall/G4M3R) @ [g4m3r.xyz](https://g4m3r.xyz)
 
 Unfortunately, I have left G4M3R's development team. However, development is very much still alive and active under the current team.
