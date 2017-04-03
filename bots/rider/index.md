@@ -3,11 +3,10 @@ Title: Rider Bot
 Description: Under Construction
 Hiding: 1
 ---
-### ALERT: Development on Rider-bot has been halted. Instead, I'll be working the [G4M3R discord bot](https://github.com/pedall/G4M3R) for the time being. However, I will continue to provide hosting for the bot.
+### ALERT: Support for this bot has been dropped. If you need help setting up your own self-hosted instance of the bot, contact me on discord.
 ***
 
 ## Rider bot
-
 
 ### Features
 + Create 'looking for group' entries quickly
@@ -17,8 +16,7 @@ Hiding: 1
 + Users are automatically asigned 'lfg' role
 
 ### In Development
-+ Nothing else planned at the moment
-+ Send me suggestions!
++ Nothing planned at the moment
 
 
 [Invite to Discord](https://discordapp.com/oauth2/authorize?permissions=268512256&client_id=268111500718243840&scope=bot) | [Rider on GitHub](https://github.com/notem/Rider-Bot)
