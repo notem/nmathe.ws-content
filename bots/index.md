@@ -5,7 +5,7 @@ Description: Listing of my discord bots
 
 ## Supported
 
-### [Saber](http://nmathe.ws/bots/saber "Saber bot") 
+### [Saber Bot](http://nmathe.ws/bots/saber "Saber bot") 
 
 A bot for scheduling events for your Discord Community. Designed for use in any discord server, be it an individuals private server, a small guild's servers, or a large discord gaming community.
 
@@ -13,7 +13,9 @@ Saber is developed in Java 8 with the JDA discord api. This bot is currently bei
 
 ## Abandoned
 
-### [Rider](http://nmathe.ws/bots/rider "Rider bot") 
+### [Rider Bot](http://nmathe.ws/bots/rider "Rider bot") 
+
+Rider wasn't generating enough usage to justify it's resource usage, and so I have discontinued support.
 
 > A simple 'Looking For Group' bot to add party-finder like functionality to your Discord Server. Designed for medium to large discord communities, Rider keeps your communities looking for group channel clean and clutter-free.
 
