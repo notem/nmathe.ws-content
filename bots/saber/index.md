@@ -68,21 +68,14 @@ Hiding: 1
 ### Quick Start
 
 1. Invite Saber-Bot and create a channel named #saber_control
-   <br />
 2. Use ``!init in #saber_control`` to create a schedule.
     * If a channel named #new_schedule is not created, give Saber-Bot Manage Channel permissions.
-   <br />
 3. Use ``!config #new_schedule`` to view schedule settings
-   <br />
 4. Use ``!zones [region/country]`` to view available timezone codes
-   <br />
 5. Use ``!config #new_schedule zone [timezone]`` to configure the schedule's timezone
-   <br />
 6. Use ``!create #new_schedule "Hi mom!" 5:45pm`` to create a new event
     * If no message appears in #new_schedule, check to insure Saber-Bot has read, write, and manage message perms
-   <br />
 7. To delete the test schedule and event use !delete [schedule|eventID] |or delete the message/channel in discord  
-   <br />
    
 Make use of !help, read the docs, or ask in the support server to learn more about the commands. I hope Saber fulfills your scheduling guild's needs!
 
@@ -171,19 +164,19 @@ For each of the following commands, ``<argument>`` denotes an argument and ``[ar
 1. Create a public calendar with Google Calendar. To set the calendar public, you should find a sharing setting near that looks something like this: 
 
  <br />
- <img src="%base_url%/assets/MakePublic.JPG" alt="Make calendar public" style="max-width:80%;">
+ <img src="%base_url%/assets/MakePublic.JPG" alt="Make calendar public" style="max-width:90%;">
  <br />
 
 2. (optional) If you already have a calendar setup, but not yet made it public, you can toggle the calendar's share settings in the 'Calendar settings'>>'Share this calendar tab' It should look something like this: 
   
   <br />
-  <img src="%base_url%/assets/ChangeShareSettings.JPG" alt="Change calendar share settings" style="max-width:80%;">
+  <img src="%base_url%/assets/ChangeShareSettings.JPG" alt="Change calendar share settings" style="max-width:90%;">
   <br />
   
 3. Next, you'll need to find the calendar's public address.  The calendar's public address is listed near the end in the calendar's settings webpage under the 'Calendar details' tab. It should look something like this: 
 
  <br />
- <img src="%base_url%/assets/PublicAddress.JPG" alt="Your calendar's public address" style="max-width:80%;">
+ <img src="%base_url%/assets/PublicAddress.JPG" alt="Your calendar's public address" style="max-width:90%;">
  <br />
 
 4. Finally, use the ``!sync <#channel> <address>`` command in your discord server's saber_control channel to sync the events in your public calendar to the schedule. 
