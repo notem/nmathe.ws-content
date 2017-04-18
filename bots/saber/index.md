@@ -68,16 +68,22 @@ Hiding: 1
 ### Quick Start
 
 1. Invite Saber-Bot and create a channel named #saber_control
+
 2. Use ``!init in #saber_control`` to create a schedule.
     * If a channel named #new_schedule is not created, give Saber-Bot Manage Channel permissions.
+    
 3. Use ``!config #new_schedule`` to view schedule settings
+
 4. Use ``!zones [region/country]`` to view available timezone codes
+
 5. Use ``!config #new_schedule zone [timezone]`` to configure the schedule's timezone
+
 6. Use ``!create #new_schedule "Hi mom!" 5:45pm`` to create a new event
     * If no message appears in #new_schedule, check to insure Saber-Bot has read, write, and manage message perms
+    
 7. To delete the test schedule and event use !delete [schedule|eventID] |or delete the message/channel in discord  
    
-Make use of !help, read the docs, or ask in the support server to learn more about the commands. I hope Saber fulfills your scheduling guild's needs!
+Make use of !help, read the docs, or ask in the support server to learn more about the commands. I hope Saber fulfills your guild's scheduling needs!
 
 <br>
 
