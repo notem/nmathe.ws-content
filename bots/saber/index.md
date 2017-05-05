@@ -14,10 +14,10 @@ Hiding: 1
 + Send reminders before an event begins.
 + Configure timezone per schedule.
 + Sync schedules to Google Calendars
++ RSVP to events
 
 #### Roadmap
-+ Improved user experience
-+ Auto-sort entries
++ Done
 
 #### Command Overview
 <div style="overflow:auto;"> 
