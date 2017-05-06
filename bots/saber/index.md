@@ -17,9 +17,9 @@ Hiding: 1
 + Users can RSVP to events
 
 #### Roadmap
-+ Done
++ Bug Fixes and Patches
++ Feature Complete
 
-#### Command Overview
 <div style="overflow:auto;"> 
 <table>
   <thead>
@@ -387,11 +387,12 @@ Saber will announce the message string verbatum unless a '%' character is encoun
     </tr>
     <tr>
       <td>%x</td>
-      <td>"in x minutes"</td>
+      <td>"in [x] minutes"</td>
       <td><code>@here %t %x</code> : <code>@here Raid practice in 5 minutes</code></td>
     </tr>
   </tbody>
 </table>
 </div>
 
+<br />
 Documentation last updated: 2017-05-06
