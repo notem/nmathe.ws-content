@@ -11,7 +11,7 @@ A bot for scheduling events for your Discord Community. Designed for use in any 
 
 Saber is developed in Java 8 with the JDA discord api. This bot is currently being hosted, and is available to invite to your discord server. 
 
-## Abandoned
+## Unsupported
 
 ### [Rider Bot](http://nmathe.ws/bots/rider "Rider bot") & [Heroku Conversion](https://github.com/notem/Rider-Bot-Heroku)
 
