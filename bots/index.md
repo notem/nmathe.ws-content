@@ -13,7 +13,7 @@ Saber is developed in Java 8 with the JDA discord api. This bot is currently bei
 
 ## Abandoned
 
-### [Rider Bot](http://nmathe.ws/bots/rider "Rider bot") 
+### [Rider Bot](http://nmathe.ws/bots/rider "Rider bot") & [Heroku Conversion](https://github.com/notem/Rider-Bot-Heroku)
 
 Rider wasn't generating enough usage to justify it's resource usage, and so I have discontinued support.
 
