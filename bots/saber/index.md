@@ -14,7 +14,7 @@ Hiding: 1
 + Send reminders before an event begins.
 + Configure timezone per schedule.
 + Sync schedules to Google Calendars
-+ RSVP to events
++ Users can RSVP to events
 
 #### Roadmap
 + Done
@@ -58,6 +58,14 @@ Hiding: 1
     <tr>
       <td>!sync</td>
       <td>Sync a schedule to load events from a Google Calendar</td>
+    </tr>
+    <tr>
+      <td>!test</td>
+      <td>Test an event's notification message</td>
+    </tr>
+    <tr>
+      <td>!list</td>
+      <td>View list of users who have rsvp'ed for an event</td>
     </tr>
   </tbody>
 </table>
@@ -106,20 +114,20 @@ Here's an example : ``!create #event_schedule "Rampage on Monday" 8:00am 9:00pm`
 For each of the following commands, ``<argument>`` denotes an argument and ``[argument(s)]`` denotes optional arguments.
 <br />
 
-+ ``!create <#channel> <title> <start> [<end>|date <mm/dd>|repeat <Su,Mo,Tu,We,Th,Fr,Sa>|<comment>]``
++ ``!create <#channel> <title> <start> [<end> <option(s)>]``
   
-  Every new entry MUST be initialized with a title and a starting time.  Start and end times should be of form h:mm with optional am/pm appended on the end (ex. ``10:20pm``).
+  Every new entry MUST be initialized with a title and a starting time.  Start and end times should be of form h:mm with optional am/pm appended on the end (ex. ``10:20pm``). The ``<end>`` parameter may be ommitted to create an event which does not end at any particular time.
   
-  Entries can optionally be configured with comments, event repeat settings, and/or to begin on a specific date.
+  Events can be created with a variety of extra options by adding specific keywords followed by a required value to the ``<option(s)>`` section. Comments are the only exception to the previous rule. Comments may be added to an event's description by simply appending quotation enclosed phrases to the end of the command (see examples). A list of ``<option>`` keywords can be found later in this document.
   
   * Ex1. ``!create #event_schedule "Party in the Guild Hall" 19:00 2:00 date 04/10`` 
   * Ex2. ``!create "#event_channel Reminders" "Sign up for Raids" 4:00pm``
   * Ex3. ``!create "#event_channel Raids" "Weekly Raid Event" 7:00pm 12:00pm repeat "Fr,Sa" "Healers and tanks always in demand." "DM @RaidCaptain with your role and level if attending."``
   <br />
   
-+ ``!edit <id> <title|start|end|date|repeat|comment> <changes>``
++ ``!edit <id> <option> <changes>``
 
-  This command can be used to change any parameter of an event given the event's ID. The first argument is always the event ID, the second argument is the parameter you wish to change, and the third argument what the parameter should be changed to. 
+  This command can be used to change any parameter of an event given the event's ID. The first argument is always the event ID, the second argument should be the keyword for the parameter you wish to change, and the third argument is the new value. The edit command uses the same option keywords as the create command.
   
   ``comment`` is the only exception to this rule.  When 'comment' is the second argument, the third argument needs to be either ``add`` or ``remove`` (to denote the which action to take). The fourth argument should then either be the new comment to add or the number of the comment to remove.
   
@@ -132,23 +140,26 @@ For each of the following commands, ``<argument>`` denotes an argument and ``[ar
 + ``!delete <id|#channel|all>``
 
   This command can be used to delete an event or schedule. Passing the event ID as the first argument will delete the individual event, passing a channel mention to a schedule's channel will delete the schedule, and passing the word 'all' will result in the deletion of every scheduled event on the server.  This command is not necessary to safely delete events and schedules.  Guild administrators can delete the discord message or discord channel which represents the event or schedule to safely remove both.
+  
     <br />
 
-+ ``!config <#channel> <msg|chan|zone|clock|style|sync|remind> <new_config>``
++ ``!config <#channel> <option> <new_config>``
 
-  When only the first argument (#channel) is provided, the currently configured settings for that schedule is return. Those settings can be modified by issuing the settings name as the second argument and the new configuration as the third argument.
+  When only the first argument (#channel) is provided, the currently configured settings for that schedule is return. Those settings can be modified by issuing the settings name as the second argument and the new configuration as the third argument. The list of ``<option>`` keywords are detailed later in this documentation.
   
   * Ex1: ``!config #schedule msg "@here Event %a: %t"``
   * Ex2: ``!config #schedule chan general``
   * Ex3: ``!config #schedule clock 12``
   * Ex4: ``!config #schedule remind "30, 10, 5 min"``
+  
     <br />
 
-+ ``!sync <#channel> <calendar address>``
++ ``!sync <#schedule_channel> <calendar address>``
 
-  This command will replace all events in the specified channel with events imported from a public google calendar. Up to the next 7 days of events will be imported. To learn more, see the **Synchronize a Schedule with Google Calendar** guide below. The schedule will re-import from the google calendar once per day automatically.
+  This command will replace all events in the specified channel with events imported from a public google calendar. Up to the next 7 days of events will be imported. To learn more, see the **Synchronize a Schedule with Google Calendar** guide below. The schedule will re-import from the google calendar once per day automatically. While a schedule is synchronizing, the schedule can not be modified and new events may not be added.
 
   * Ex: ``!sync #schedule [. . .]``
+  
   <br />
 
 + ``!zones <filter>``
@@ -158,10 +169,28 @@ For each of the following commands, ``<argument>`` denotes an argument and ``[ar
   * Ex: ``!zones us``
   
   <br />
+  
++ ``!test <event_id>``
+
+  The test command will send an test announcement for the event to the bot control channel. The announcement message format is controlled by the schedule to which the event belongs to, and can be changed using the config command.  
+  
+  <br />
+ 
++ ``!list <event_id>``
+
+  The list command will show all users who have rsvp'ed for an event. The command takes a single argument which should be the ID of the event you wish query. The schedule holding the event must have 'rsvp' turned on in the configuration settings. RSVP can be enabled on a channel using the config command as followed, ``!config #channel rsvp on``
+  
+  <br />
+
++ ``!sort <#schedule_channel>``
+
+  The sort command will re-sort the entries in a schedule. Entries are reordered so that the top event entry is the next event to begin. The schedule cannot be modified while in the process of sorting. Schedules with more than 10 entries will not be sorted.
+  
+  <br />
 
 + ``!help [command]``
 
-  Direct messages the user a list of commands that can be used in Saber's dedicated control channel. If a command is supplied as the optional first argument, additional usage information for that command is provided.
+  Direct messages the user a list of commands that can be used in Saber's dedicated control channel. If a command is supplied as the optional first argument, additional usage information for that command is provided. The information is <code>help</code> is likely to be more up-to-date than the documentation here.
 
 <br>
 
@@ -195,45 +224,132 @@ For each of the following commands, ``<argument>`` denotes an argument and ``[ar
 
 <br />
 
+### Create and Edit Options
+
+<div style="overflow:auto;"> 
+<table>
+  <thead>
+    <th>Keyword</th>
+    <th>Aliases</th>
+    <th>Values</th>
+  </thead>
+  <tbody>
+    <tr>
+      <td>repeat</td>
+      <td>r</td>
+      <td>A comma separated list of days of week to repeat</td>
+    </tr>
+    <tr>
+      <td>interval</td>
+      <td>i</td>
+      <td>A (reasonably sized) number</td>
+    </tr>
+    <tr>
+      <td>date</td>
+      <td>d</td>
+      <td>A date in the format of yyyy/mm/dd</td>
+    </tr>
+    <tr>
+      <td>start-date</td>
+      <td>sd</td>
+      <td>A date in the format of yyyy/mm/dd</td>
+    </tr>
+    <tr>
+      <td>end-date</td>
+      <td>ed</td>
+      <td>A date in the format of yyyy/mm/dd</td>
+    </tr>
+    <tr>
+      <td>url</td>
+      <td>u</td>
+      <td>The url address for the event message's title</td>
+    </tr>
+    <tr>
+    <td><em>Edit Command Only</em></td>
+    </tr>
+    <tr>
+      <td>title</td>
+      <td>t</td>
+      <td>The name given to the event</td>
+    </tr>
+    <tr>
+      <td>start</td>
+      <td>s</td>
+      <td>Time event begins formatted as hh:mm</td>
+    </tr>
+    <tr>
+      <td>end</td>
+      <td>e</td>
+      <td>Time event ends formatted as hh:mm</td>
+    </tr>
+    <tr>
+      <td>comment</td>
+      <td>c</td>
+      <td>"add" or "remove"</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
 ### Schedule Config Options
 
 <div style="overflow:auto;"> 
 <table>
   <thead>
-    <th>Setting</th>
-    <th>Purpose</th>
-    <th>Options</th>
+    <th>Keyword</th>
+    <th>Aliases</th>
+    <th>Values</th>
   </thead>
   <tbody>
     <tr>
-      <td>zone</td>
-      <td>The timezone to use for events on the channel</td>
-      <td>Use the timezones command</td>
-    </tr>
-    <tr>
       <td>msg</td>
-      <td>The message that is announced on the start and end of an event</td>
-      <td>The '%'character may be used to insert event specific text, see below.</td>
+      <td>m</td>
+      <td>A message format phrase</td>
     </tr>
     <tr>
       <td>chan</td>
-      <td>The channel to which announcement messages are sent</td>
-      <td>The name of any channel. An invalid channel name will cause no announcement to be sent</td>
+      <td>ch</td>
+      <td>The target channel for event announcements</td>
+    </tr>
+    <tr>
+      <td>remind</td>
+      <td>r</td>
+      <td>List of comma separated numbers</td>
+    </tr>
+    <tr>
+      <td>remind-msg</td>
+      <td>rm</td>
+      <td>A message format phrase</td>
+    </tr>
+    <tr>
+      <td>remind-chan</td>
+      <td>rch</td>
+      <td>The target channel for event reminders</td>
     </tr>
     <tr>
       <td>clock</td>
-      <td>The hour format to display the start and end times of events</td>
-      <td>For 12 hour format use '12', for 24 hour format use '24'</td>
+      <td>cl</td>
+      <td>For 12 hour format use "12", for 24 hour format use "24"</td>
     </tr>
     <tr>
-      <td>style</td>
-      <td>The style in which the events on the schedule are displayed</td>
-      <td>The default is 'embed', use 'plain' if you'd rather use the legacy code-style.</td>
+      <td>zone</td>
+      <td>z</td>
+      <td>A Zone from !zones</td>
+    </tr>
+    <tr>
+      <td>rsvp</td>
+      <td>rs</td>
+      <td>Use "on" to enable rsvp, "off" to disable rsvp</td>
     </tr>
     <tr>
       <td>sync</td>
-      <td>The Calendar address that the channel is set to sync too</td>
+      <td>s</td>
       <td>A valid address, anything else will result in 'off'</td>
+    </tr>
+    <tr>
+      <td>time</td>
+      <td>t</td>
+      <td>Time of day to schedule calendar sync</td>
     </tr>
   </tbody>
 </table>
@@ -260,8 +376,8 @@ Saber will announce the message string verbatum unless a '%' character is encoun
       <td><code>@here Event: %t</code> : <code>@here Event: PoE Cut-throat League</code></td>
     </tr>
     <tr>
-      <td>%c[x]</td>
-      <td>The [x]th comment of the event</td>
+      <td>%c[n]</td>
+      <td>The [n]th comment of the event</td>
       <td><code>@everyone %c1</code> : <code>@everyone Dont forget to signup for our weekly raids!</code></td>
     </tr>
     <tr>
@@ -269,6 +385,13 @@ Saber will announce the message string verbatum unless a '%' character is encoun
       <td>"begins [in x minutes]" or "ends [in x minutes]"</td>
       <td><code>@here %t %a</code> : <code>@here Raid practice begins in 5 minutes</code></td>
     </tr>
+    <tr>
+      <td>%x</td>
+      <td>"in x minutes"</td>
+      <td><code>@here %t %x</code> : <code>@here Raid practice in 5 minutes</code></td>
+    </tr>
   </tbody>
 </table>
 </div>
+
+Documentation last updated: 2017-05-06
