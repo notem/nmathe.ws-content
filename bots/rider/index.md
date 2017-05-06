@@ -15,10 +15,6 @@ Hiding: 1
 + Minutes since last update displayed on the entry
 + Users are automatically asigned 'lfg' role
 
-### In Development
-+ Nothing planned at the moment
-
-
 [Invite to Discord](https://discordapp.com/oauth2/authorize?permissions=268512256&client_id=268111500718243840&scope=bot) | [Rider on GitHub](https://github.com/notem/Rider-Bot)
 
 <table>
