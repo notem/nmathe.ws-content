@@ -334,7 +334,7 @@ For each of the following commands, ``<argument>`` denotes an argument and ``[ar
     <tr>
       <td>zone</td>
       <td>z</td>
-      <td>A Zone from !zones</td>
+      <td>A zone from !zones</td>
     </tr>
     <tr>
       <td>rsvp</td>
@@ -384,6 +384,11 @@ Saber will announce the message string verbatum unless a '%' character is encoun
       <td>%a</td>
       <td>"begins [in x minutes]" or "ends [in x minutes]"</td>
       <td><code>@here %t %a</code> : <code>@here Raid practice begins in 5 minutes</code></td>
+    </tr>
+    <tr>
+      <td>%b</td>
+      <td>"begins" or "ends"</td>
+      <td><code>@here %t %b</code> : <code>@here Raid practice begins</code></td>
     </tr>
     <tr>
       <td>%x</td>
