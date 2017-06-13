@@ -225,6 +225,12 @@ For each of the following commands, ``<argument>`` denotes an argument and ``[ar
 <br />
 
 ### Create and Edit Options
+An edit command should be formatted like ``!edit <ID> <keyword> <argument(s)>``
+
+A create command differs in that several keywords and arguments may be used. 
+So, a create command should look something like ``!create <#channel> <title> <start> [end] [keyword] [argument(s)] ... [keyword] [argument]``
+
+The table below details what can be used in the [keyword] and [argument(s)] sections of the command
 
 <div style="overflow:auto;"> 
 <table>
@@ -305,6 +311,8 @@ For each of the following commands, ``<argument>`` denotes an argument and ``[ar
   </tbody>
 </table>
 </div>
+
+<br />
 
 ### Schedule Config Options
 
