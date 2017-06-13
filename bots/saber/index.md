@@ -275,18 +275,33 @@ For each of the following commands, ``<argument>`` denotes an argument and ``[ar
     <tr>
       <td>start</td>
       <td>s</td>
-      <td>Time event begins formatted as hh:mm</td>
+      <td>The time of day the event begins, formatted as hh:mm</td>
     </tr>
     <tr>
       <td>end</td>
       <td>e</td>
-      <td>Time event ends formatted as hh:mm</td>
+      <td>The time of day the event ends, formatted as hh:mm</td>
     </tr>
     <tr>
       <td>comment</td>
       <td>c</td>
-      <td>"add" or "remove"</td>
+      <td>"add" or "remove" followed by the comment encapsulated in quotations.</td>
     </tr>
+    <tr>
+      <td>quiet-start</td>
+      <td>qs</td>
+      <td>No arguments. This silences the start announcement.</td>
+    </tr>
+    <tr>
+      <td>quiet-end</td>
+      <td>qs</td>
+      <td>No arguments. This silences the end announcement.</td>
+    </tr>
+    <tr>
+      <td>quiet-remind</td>
+      <td>qs</td>
+      <td>No arguments. This silences any reminders.</td>
+    </tr>    
   </tbody>
 </table>
 </div>
@@ -302,6 +317,9 @@ For each of the following commands, ``<argument>`` denotes an argument and ``[ar
   </thead>
   <tbody>
     <tr>
+      <td>Announcement Settings</td>
+    </tr>
+    <tr>
       <td>msg</td>
       <td>m</td>
       <td>A message format phrase</td>
@@ -312,6 +330,19 @@ For each of the following commands, ``<argument>`` denotes an argument and ``[ar
       <td>The target channel for event announcements</td>
     </tr>
     <tr>
+      <td>end-msg</td>
+      <td>m</td>
+      <td>A message format phrase. This overrides <code>msg</code> for end announcements.</td>
+    </tr>
+    <tr>
+      <td>end-chan</td>
+      <td>ch</td>
+      <td>The target channel for event announcements. This overrides <code>chan</code> for end announcements.</td>
+    </tr>
+    <tr>
+      <td>Reminder Settings</td>
+    </tr>
+    <tr>
       <td>remind</td>
       <td>r</td>
       <td>List of comma separated numbers</td>
@@ -319,12 +350,15 @@ For each of the following commands, ``<argument>`` denotes an argument and ``[ar
     <tr>
       <td>remind-msg</td>
       <td>rm</td>
-      <td>A message format phrase</td>
+      <td>A message format phrase. This overrides <code>msg</code> for reminders.</td>
     </tr>
     <tr>
       <td>remind-chan</td>
       <td>rch</td>
-      <td>The target channel for event reminders</td>
+      <td>The target channel for event reminders. This overrides <code>chan</code> for reminders.</td>
+    </tr>
+    <tr>
+      <td>Miscellaneous Schedule Settings</td>
     </tr>
     <tr>
       <td>clock</td>
@@ -335,21 +369,39 @@ For each of the following commands, ``<argument>`` denotes an argument and ``[ar
       <td>zone</td>
       <td>z</td>
       <td>A zone from !zones</td>
-    </tr>
+    </tr>  
     <tr>
       <td>rsvp</td>
       <td>rs</td>
       <td>Use "on" to enable rsvp, "off" to disable rsvp</td>
     </tr>
     <tr>
+      <td>style</td>
+      <td>st</td>
+      <td>Use "full" for the full event display, "narrow" for a shortened display format.</td>
+    </tr>  
+    <tr>
+      <td>sort</td>
+      <td>so</td>
+      <td>Use "asc" to auto-sort the entries in ascending order, "desc" for descending order, and "off" to disable auto-sort.</td>
+    </tr> 
+    <tr>
+      <td>Schedule Sync Settings</td>
+    </tr>
+    <tr>
       <td>sync</td>
       <td>s</td>
-      <td>A valid address, anything else will result in 'off'</td>
+      <td>A valid address, anything else will result in "off".</td>
     </tr>
     <tr>
       <td>time</td>
       <td>t</td>
-      <td>Time of day to schedule calendar sync</td>
+      <td>The time of day to schedule Google Calendar sync.</td>
+    </tr>
+    <tr>
+      <td>length</td>
+      <td>l</td>
+      <td>The number of days to sync from the Google Calendar</td>
     </tr>
   </tbody>
 </table>
@@ -399,5 +451,18 @@ Saber will announce the message string verbatum unless a '%' character is encoun
 </table>
 </div>
 
-<br />
-Documentation last updated: 2017-05-06
+<br>
+
+### Self-Hosting Saber Bot
+
+1. Saber-bot has been developed using the Java 8 programming language. To run this application, you will need to download and install the [Java 8 runtime environment](http://www.oracle.com/technetwork/java/javase/downloads/jre8-downloads-2133155.html) for your system.
+
+2. Saber-bot uses MongoDB to store the persistent event and schedule data. Install [the latest version of MongoDB](https://docs.mongodb.com/manual/installation/) on your system. I suggest you setup MongoDB to run on system startup as well.
+
+3. With the prequisite software installed, you should now be able to launch the bot application. Download the latest version of the bot from [here](https://drive.google.com/drive/folders/0B0zQK1JmyZGJdVdFQ1IxUi1haXc?usp=sharing), or compile from the bot from source using Maven. 
+
+4. Running the .jar file for the first time should cause the application to generate a fresh configuration file and close. Add your discord bot token and your discord user ID to the configuration file and restart the bot. 
+
+5. To have Google Calendar integration, you need to generate new credentials on the [Google Developer Console](https://console.developers.google.com/apis/credentials). Generate a new 'service account key' and download the key as a JSON file type. Modify the configuration file's 'google_service_key' settings to indicate the location of your service key file.
+
+Documentation last updated: 2017-06-13
