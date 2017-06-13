@@ -465,4 +465,6 @@ Saber will announce the message string verbatum unless a '%' character is encoun
 
 5. To have Google Calendar integration, you need to generate new credentials on the [Google Developer Console](https://console.developers.google.com/apis/credentials). Generate a new 'service account key' and download the key as a JSON file type. Modify the configuration file's 'google_service_key' settings to indicate the location of your service key file.
 
+<br />
+
 Documentation last updated: 2017-06-13
