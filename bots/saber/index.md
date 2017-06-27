@@ -6,7 +6,7 @@ Hiding: 1
 
 ## Saber bot
 
-[Invite to Discord](https://discordapp.com/api/oauth2/authorize?client_id=250801603630596100&scope=bot&permissions=76800) | [Saber on GitHub](https://github.com/notem/Saber-Bot) | [Get Support](https://discord.gg/NcmqF)
+[Invite to Discord](https://discordapp.com/api/oauth2/authorize?client_id=250801603630596100&scope=bot&permissions=76800) | [Saber on GitHub](https://github.com/notem/Saber-Bot) | [Get Support](https://discord.gg/ZQZnXsC)
 
 #### Features
 + Display events on dedicated schedule channels.
@@ -475,4 +475,4 @@ Saber will announce the message string verbatum unless a '%' character is encoun
 
 <br />
 
-Documentation last updated: 2017-06-13
+Documentation last updated: 2017-06-27
