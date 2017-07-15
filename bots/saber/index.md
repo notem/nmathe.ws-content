@@ -271,6 +271,10 @@ The table below details what can be used in the [keyword] and [argument(s)] sect
       <td>The url address for the event message's title</td>
     </tr>
     <tr>
+      <td>expire</td>
+      <td>ex</td>
+      <td>A date in the format of yyyy/mm/dd</td>
+    <tr>
     <td><em>Edit Command Only</em></td>
     </tr>
     <tr>
@@ -475,4 +479,4 @@ Saber will announce the message string verbatum unless a '%' character is encoun
 
 <br />
 
-Documentation last updated: 2017-06-27
+Documentation last updated: 2017-07-15
