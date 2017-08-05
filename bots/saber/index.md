@@ -15,7 +15,7 @@ Hiding: 1
 + Configure timezone per schedule.
 + Sync schedules to Google Calendars
 + Users can RSVP to events
-+ Customize command prefix
++ Custom command prefix
 
 #### Roadmap
 + Bug Fixes and Patches
@@ -165,6 +165,10 @@ For each of the following commands, ``<argument>`` denotes an argument and ``[ar
 + ``!delete <id|#channel|all>``
 
   This command can be used to delete an event or schedule. Passing the event ID as the first argument will delete the individual event, passing a channel mention to a schedule's channel will delete the schedule, and passing the word 'all' will result in the deletion of every scheduled event on the server.  This command is not necessary to safely delete events and schedules.  Guild administrators can delete the discord message or discord channel which represents the event or schedule to safely remove both.
+  
+  * Ex1: ``!delete 10ada9d``
+  * Ex2: ``!delete #new_schedule``
+  * Ex3: ``!delete all``
   
     <br />
 
