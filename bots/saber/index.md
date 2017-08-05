@@ -15,10 +15,11 @@ Hiding: 1
 + Configure timezone per schedule.
 + Sync schedules to Google Calendars
 + Users can RSVP to events
++ Customize command prefix
 
 #### Roadmap
 + Bug Fixes and Patches
-+ Feature Complete
++ Feature revisions
 
 <div style="overflow:auto;"> 
 <table>
@@ -28,70 +29,89 @@ Hiding: 1
   </thead>
   <tbody>
       <tr>
-      <td>!init</td>
-      <td>Initializes a new schedule</td>
+      <td>init</td>
+      <td>Create a new schedule</td>
     </tr>
     <tr>
-      <td>!create</td>
-      <td>Adds a new event entry to the specified schedule</td>
+      <td>create</td>
+      <td>Add a new event to a preexisting schedule</td>
     </tr>
     <tr>
-      <td>!edit</td>
-      <td>Modifies a scheduled event with a new configuration</td>
+      <td>edit</td>
+      <td>Modify a preexisting event</td>
     </tr>
     <tr>
-      <td>!delete</td>
-      <td>Used to delete events and schedules</td>
+      <td>delete</td>
+      <td>Delete an event or schedule</td>
     </tr>
     <tr>
-      <td>!config</td>
-      <td>May be used to show a schedule's settings and change those settings</td>
+      <td>guild</td>
+      <td>Display and modify guild-wide settings</td>
     </tr>
     <tr>
-      <td>!zones</td>
-      <td>Shows all timezones that the bot understands</td>
+      <td>config</td>
+      <td>Display and modify schedule settings</td>
     </tr>
     <tr>
-      <td>!help</td>
-      <td>Direct messages the user the list of commands as well as additional information</td>
+      <td>zones</td>
+      <td>Show all timezones that the bot understands</td>
     </tr>
     <tr>
-      <td>!sync</td>
+      <td>help</td>
+      <td>Direct message the user a list of commands with additional information</td>
+    </tr>
+    <tr>
+      <td>sync</td>
       <td>Sync a schedule to load events from a Google Calendar</td>
     </tr>
     <tr>
-      <td>!test</td>
+      <td>test</td>
       <td>Test an event's notification message</td>
     </tr>
     <tr>
-      <td>!list</td>
+      <td>sort</td>
+      <td>Chronologically reorder the events on the schedule</td>
+    </tr>
+    <tr>
+      <td>list</td>
       <td>View list of users who have rsvp'ed for an event</td>
+    </tr>
+    <tr>
+      <td>listm</td>
+      <td><code>list</code> with better compatability for the mobile client</td>
     </tr>
   </tbody>
 </table>
 </div>
 
+The default command prefix is ``!``, however ``@Saber`` can also be used to trigger bot commands.
+
 <br>
 
 ### Quick Start
 
-1. Invite Saber-Bot and create a channel named #saber_control
+1. Invite Saber-Bot and create a channel named **#saber_control**
 
 2. Use ``!init in #saber_control`` to create a schedule.
-    * If a channel named #new_schedule is not created, give Saber-Bot Manage Channel permissions.
+    * If a channel named **#new_schedule** is not created, give Saber-Bot Manage Channel permissions.
     
 3. Use ``!config #new_schedule`` to view schedule settings
 
-4. Use ``!zones [region/country]`` to view available timezone codes
+4. Use ``!guild prefix $`` to change the command prefix to ``$``.
 
-5. Use ``!config #new_schedule zone [timezone]`` to configure the schedule's timezone
+5. Use ``$zones "US"`` to view available timezone codes for the United States.
+    * Experiment with this command to find a timezone which best represents your locale.
 
-6. Use ``!create #new_schedule "Hi mom!" 5:45pm`` to create a new event
+6. Use ``$config #new_schedule zone [timezone]``, where ``[timezone]`` is the timezone you found in step 5.
+    * It is best to always configure your schedule's timezone before adding events.
+
+7. Use ``$create #new_schedule "Hi mom!" 5:45pm`` to create a new event
     * If no message appears in #new_schedule, check to insure Saber-Bot has read, write, and manage message perms
     
-7. To delete the test schedule and event use !delete [schedule|eventID] |or delete the message/channel in discord  
+8. To delete the test schedule and event use ``$delete #new_schedule`` to remove the schedule.
+    * Alternatively, the schedule channel can be manually deleted for the same affect. The same goes for the event messages.
    
-Make use of !help, read the docs, or ask in the support server to learn more about the commands. I hope Saber fulfills your guild's scheduling needs!
+Make use of the ``help`` command, read the docs, or ask in the support server to learn more about the commands. I hope @Saber fulfills your guild's scheduling needs!
 
 <br>
 
@@ -103,6 +123,8 @@ Scheduling channels require Saber be given some permissions, which should alread
 
 In addition to schedule channels, Saber bot is configured to listen for scheduling commands only on a dedicated channel.  Create a channel with the name "saber_control," and allow Saber to view and send messages to it.
 
+After the first ``guild`` command is issued in ``#saber_control``, the name of the control channel can be customized without affecting the behavior of the bot.
+
 <br>
 
 ### Commands
@@ -112,6 +134,7 @@ Saber commands are of the form ``!command <arguments>``; an argument is any spac
 Here's an example : ``!create #event_schedule "Rampage on Monday" 8:00am 9:00pm``. Saber will parse out four tokens from that command: ``#event_schedule``, ``Rampage on Monday``, ``8:00am``, and ``9:00pm``.
 
 For each of the following commands, ``<argument>`` denotes an argument and ``[argument(s)]`` denotes optional arguments.
+
 <br />
 
 + ``!create <#channel> <title> <start> [<end> <option(s)>]``
@@ -123,6 +146,7 @@ For each of the following commands, ``<argument>`` denotes an argument and ``[ar
   * Ex1. ``!create #event_schedule "Party in the Guild Hall" 19:00 2:00 date 04/10`` 
   * Ex2. ``!create "#event_channel Reminders" "Sign up for Raids" 4:00pm``
   * Ex3. ``!create "#event_channel Raids" "Weekly Raid Event" 7:00pm 12:00pm repeat "Fr,Sa" "Healers and tanks always in demand." "DM @RaidCaptain with your role and level if attending."``
+  
   <br />
   
 + ``!edit <id> <option> <changes>``
@@ -135,6 +159,7 @@ For each of the following commands, ``<argument>`` denotes an argument and ``[ar
   * Ex2: ``!edit 0abf start 21:15``
   * Ex3: ``!edit 49af end 2:15pm``
   * Ex4: ``!edit 80c0 comment remove 1``
+  
    <br />
  
 + ``!delete <id|#channel|all>``
@@ -153,6 +178,17 @@ For each of the following commands, ``<argument>`` denotes an argument and ``[ar
   * Ex4: ``!config #schedule remind "30, 10, 5 min"``
   
     <br />
+
++ ``!guild <option> <new_config>``
+
+  This command may be used to modify guild-wide settings, such as your guild's command prefix and control channel. Issuing the guild command without arguments will output the current settings for your discord server. With this command you can specify which commands are 'restricted' and 'unrestricted'. A restricted command can only be used in the designated bot control channel. An unrestricted command may be used in any channel and by anyone so long as the bot has appropriate permissions to view and post in that channel. The list of ``<option>`` keywords are detailed later in this documentation.
+  
+  * Ex1: ``!guild``
+  * Ex2: ``!guild prefix $``
+  * Ex3: ``!guild restrict init``
+  * Ex4: ``!guild unrestrict help``
+  
+  <br />
 
 + ``!sync <#schedule_channel> <calendar address>``
 
@@ -174,23 +210,36 @@ For each of the following commands, ``<argument>`` denotes an argument and ``[ar
 
   The test command will send an test announcement for the event to the bot control channel. The announcement message format is controlled by the schedule to which the event belongs to, and can be changed using the config command.  
   
+  * Ex: ``!test 02ac9b``
+  
   <br />
  
 + ``!list <event_id>``
 
-  The list command will show all users who have rsvp'ed for an event. The command takes a single argument which should be the ID of the event you wish query. The schedule holding the event must have 'rsvp' turned on in the configuration settings. RSVP can be enabled on a channel using the config command as followed, ``!config #channel rsvp on``
+  The list command will show all users who have rsvp'ed for an event. The command takes a single argument which should be the ID of the event you wish query. The schedule holding the event must have 'rsvp' turned on in the configuration settings. RSVP can be enabled on a channel using the config command as followed, ``!config #channel rsvp on``. The output of this command can be filtered by role, user, and type. Reference examples 2 and 3 below to see how this can be done.
+  
+  * Ex1: ``!list 39a0da3``
+  * Ex2: ``!list 109ad2a "u: @notem``
+  * Ex3: ``!list 019fa92 "t: yes" "r: @admin"``
   
   <br />
 
 + ``!sort <#schedule_channel>``
 
-  The sort command will re-sort the entries in a schedule. Entries are reordered so that the top event entry is the next event to begin. The schedule cannot be modified while in the process of sorting. Schedules with more than 10 entries will not be sorted.
+  The sort command will re-sort the entries in a schedule. Entries are reordered so that the top event entry is the next event to begin. The schedule cannot be modified while in the process of sorting. Schedules with more than 10 entries will not be sorted. The order in which the schedule is sorted can be specified by appending 'asc' (ascending order) or 'desc' (descending order) to the command.
+  
+  * Ex1: ``!sort #schedule``
+  * Ex2: ``!sort #my_schedule asc``
+  * Ex3: ``!sort #my_schedule desc``
   
   <br />
 
 + ``!help [command]``
 
-  Direct messages the user a list of commands that can be used in Saber's dedicated control channel. If a command is supplied as the optional first argument, additional usage information for that command is provided. The information is <code>help</code> is likely to be more up-to-date than the documentation here.
+  Direct messages the user a list of commands that can be used in Saber's dedicated control channel. If a command is supplied as the optional first argument, additional usage information for that command is provided. The information provided by the <code>help</code> command is likely to be more up-to-date than the documentation here.
+  
+  * Ex1: ``!help``
+  * Ex2: ``!help edit``
 
 <br>
 
@@ -318,7 +367,7 @@ The table below details what can be used in the [keyword] and [argument(s)] sect
 
 <br />
 
-### Schedule Config Options
+### Config Command Options
 
 <div style="overflow:auto;"> 
 <table>
@@ -419,6 +468,41 @@ The table below details what can be used in the [keyword] and [argument(s)] sect
 </table>
 </div>
 
+<br />
+
+### Guild Command Options
+<div style="overflow:auto;"> 
+<table>
+  <thead>
+    <th>Keyword</th>
+    <th>Aliases</th>
+    <th>Values</th>
+  </thead>
+  <tbody>
+    <tr>
+      <td>prefix</td>
+      <td>p</td>
+      <td>The prefix used to trigger bot commands.</td>
+    </tr>
+    <tr>
+      <td>control</td>
+      <td>c</td>
+      <td>The designated channel to listen for restricted commands.</td>
+    </tr>
+    <tr>
+      <td>restrict</td>
+      <td>r</td>
+      <td>The name of the command to restrict. Do not include the command prefix.</td>
+    </tr>
+    <tr>
+      <td>unrestrict</td>
+      <td>u</td>
+      <td>The name of the command to set as unrestricted.</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
 <br>
 
 #### Setting a Custom Announcement Message
@@ -479,4 +563,4 @@ Saber will announce the message string verbatum unless a '%' character is encoun
 
 <br />
 
-Documentation last updated: 2017-07-15
+Documentation last updated: 2017-08-06
