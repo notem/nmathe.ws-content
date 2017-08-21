@@ -76,10 +76,6 @@ Hiding: 1
       <td>list</td>
       <td>View list of users who have rsvp'ed for an event</td>
     </tr>
-    <tr>
-      <td>listm</td>
-      <td><code>list</code> with better compatability for the mobile client</td>
-    </tr>
   </tbody>
 </table>
 </div>
@@ -153,12 +149,13 @@ For each of the following commands, ``<argument>`` denotes an argument and ``[ar
 
   This command can be used to change any parameter of an event given the event's ID. The first argument is always the event ID, the second argument should be the keyword for the parameter you wish to change, and the third argument is the new value. The edit command uses the same option keywords as the create command.
   
-  ``comment`` is the only exception to this rule.  When 'comment' is the second argument, the third argument needs to be either ``add`` or ``remove`` (to denote the which action to take). The fourth argument should then either be the new comment to add or the number of the comment to remove.
+  ``comment`` is the only exception to this rule.  When 'comment' is the second argument, the third argument needs to be either ``add`` , ``remove``, or ``swap`` (to denote the which action to take). If using the ``add`` or ``remove`` actions, a fourth argument representing the comment number or new comment needs to be provided. If using the ``swap`` action, two additional arguments representing the comment numbers to swap are required. See examples below.
   
-  * Ex1: ``!edit 3fa0 comment add "Attendance is mandatory"``
-  * Ex2: ``!edit 0abf start 21:15``
-  * Ex3: ``!edit 49af end 2:15pm``
-  * Ex4: ``!edit 80c0 comment remove 1``
+  * Ex1: ``!edit 3fa021 comment add "Attendance is mandatory"``
+  * Ex2: ``!edit 0abf58 start 21:15``
+  * Ex3: ``!edit 49a83f end 2:15pm``
+  * Ex4: ``!edit 80c012 comment remove 1``
+  * Ex5: ``!edit aa2134 comment swap 1 2``
   
    <br />
  
@@ -218,11 +215,14 @@ For each of the following commands, ``<argument>`` denotes an argument and ``[ar
   
   <br />
  
-+ ``!list <event_id>``
++ ``!list <event_id> [<mode> <filter(s)>]``
 
-  The list command will show all users who have rsvp'ed for an event. The command takes a single argument which should be the ID of the event you wish query. The schedule holding the event must have 'rsvp' turned on in the configuration settings. RSVP can be enabled on a channel using the config command as followed, ``!config #channel rsvp on``. The output of this command can be filtered by role, user, and type. Reference examples 2 and 3 below to see how this can be done.
+  The list command will show all users who have rsvp'ed for an event. The command takes a single argument which should be the ID of the event you wish query. The schedule holding the event must have 'rsvp' turned on in the configuration settings. RSVP can be enabled on a channel using the config command as followed, ``!config #channel rsvp on``. 
+  Mobile discord clients may have trouble rendering the embedded output of this command.  If so, the command 'mode' may be set to mobile by appending ``mobile`` to command arguments. For a view more conducive to copy and pasting the list of RSVPers else where, try the ``id`` mode.
+  The output of this command can be filtered by role, user, and type. Reference examples 2 and 3 below to see how this can be done.
   
   * Ex1: ``!list 39a0da3``
+  * Ex1: ``!list 39a0da3 mobile``
   * Ex2: ``!list 109ad2a "u: @notem``
   * Ex3: ``!list 019fa92 "t: yes" "r: @admin"``
   
@@ -274,6 +274,8 @@ For each of the following commands, ``<argument>`` denotes an argument and ``[ar
   <br />
 
 5. If you wish to unsync the channel from your google calendar, use the ``config`` command (ex. ``!config #channel sync off``).
+
+Google Calendar events can be configured to sync some additional information to the Saber's discord schedules by including specific information in the description of the Google Calendar event.
 
 <br />
 
@@ -365,6 +367,16 @@ The table below details what can be used in the [keyword] and [argument(s)] sect
       <td>qs</td>
       <td>No arguments. This silences any reminders.</td>
     </tr>    
+    <tr>
+      <td>image</td>
+      <td>im</td>
+      <td>Image url to attach to the event's schedule display</td>
+    </tr> 
+    <tr>
+      <td>thumbnail</td>
+      <td>th</td>
+      <td>Thumbnail url to attach to the event's schedule display</td>
+    </tr> 
   </tbody>
 </table>
 </div>
@@ -514,38 +526,90 @@ Every schedule channel is configured with it's own message to announce to a spec
 
 Saber will announce the message string verbatum unless a '%' character is encountered.  When a '%' character is encountered, Saber will read the next character(s) and substitute the token with whatever value is associated that character combination.
 
+If you are having trouble understanding how this behaves, experiment with different message formats using the ``config`` and ``test`` commands.
+
 <div style="overflow:auto;"> 
 <table>
   <thead>
     <th>% token</th>
     <th>Text Substituted in</th>
-    <th>Example msg : Possible Results</th>
+    <th>Example [<code>msg</code>] Format</th>
   </thead>
   <tbody>
     <tr>
       <td>%t</td>
       <td>Title of event announced</td>
-      <td><code>@here Event: %t</code> : <code>@here Event: PoE Cut-throat League</code></td>
+      <td><code>@here Event: %t</code></td>
     </tr>
     <tr>
       <td>%c[n]</td>
       <td>The [n]th comment of the event</td>
-      <td><code>@everyone %c1</code> : <code>@everyone Dont forget to signup for our weekly raids!</code></td>
+      <td><code>@everyone %t %c1</code></td>
+    </tr>
+    <tr>
+      <td>%f</td>
+      <td>All comments on the event. Each comment appears on separate line.</td>
+      <td><code>@everyone %f</code></td>
     </tr>
     <tr>
       <td>%a</td>
       <td>"begins [in x minutes]" or "ends [in x minutes]"</td>
-      <td><code>@here %t %a</code> : <code>@here Raid practice begins in 5 minutes</code></td>
+      <td><code>@here %t %a</code></td>
     </tr>
     <tr>
       <td>%b</td>
       <td>"begins" or "ends"</td>
-      <td><code>@here %t %b</code> : <code>@here Raid practice begins</code></td>
+      <td><code>@here %t %b</code>></td>
     </tr>
     <tr>
       <td>%x</td>
       <td>"in [x] minutes"</td>
-      <td><code>@here %t %x</code> : <code>@here Raid practice in 5 minutes</code></td>
+      <td><code>@here %x %t %b</code></td>
+    </tr>
+    <tr>
+      <td>%i</td>
+      <td>The ID of the event</td>
+      <td><code>@here **%t** [%i] %a</code></td>
+    </tr>
+    <tr>
+      <td>%d</td>
+      <td>The day of the month (number) the event starts</td>
+      <td><code>@here %t %b on the %dth</code></td>
+    </tr>
+    <tr>
+      <td>%D</td>
+      <td>The day of the week (word) the event starts</td>
+      <td><code>@here %t %b on %D</code></td>
+    </tr>
+    <tr>
+      <td>%m</td>
+      <td>The month (number) the event starts</td>
+      <td><code>@here %t %b on %m/%d</code></td>
+    </tr>
+    <tr>
+      <td>%M</td>
+      <td>The month (word) the event starts</td>
+      <td><code>@here %t %b on %dth of %M</code></td>
+    </tr>
+    <tr>
+      <td>%y</td>
+      <td>The year the event starts</td>
+      <td><code>@here %t %b on %y-%m-%d</code></td>
+    </tr>
+    <tr>
+      <td>%u</td>
+      <td>The URL used by the title of the event</td>
+      <td><code>@here %t %b : %u</code></td>
+    </tr>
+    <tr>
+      <td>%v</td>
+      <td>The image URL of the event</td>
+      <td><code>@here %t %b : %v</code></td>
+    </tr>
+    <tr>
+      <td>%w</td>
+      <td>The thumbnail URL of the event</td>
+      <td><code>@here %t %b : %w</code></td>
     </tr>
   </tbody>
 </table>
@@ -563,7 +627,13 @@ Saber will announce the message string verbatum unless a '%' character is encoun
 
 4. Running the .jar file for the first time should cause the application to generate a fresh configuration file and close. Add your discord bot token and your discord user ID to the configuration file and restart the bot. 
 
-5. To have Google Calendar integration, you need to generate new credentials on the [Google Developer Console](https://console.developers.google.com/apis/credentials). Generate a new 'service account key' and download the key as a JSON file type. Modify the configuration file's 'google_service_key' settings to indicate the location of your service key file.
+5. To have Google Calendar integration, you need to generate new credentials on the [Google Developer Console](https://console.developers.google.com/apis/credentials). Generate a new 'service account key' and download the key as a JSON file type. Modify the configuration file's ``google_service_key`` settings to indicate the location of your service key file.
+
+6. Some notes on the ``saber.toml`` configuration file:
+    * If you have configured you're MongoDB application to a non-default state the ``mongodb`` setting may need to be adjusted.
+    * The ``web_token`` setting is used to share bot metrics with bots.discord.pw, and is completely optional.
+    * Sharding is typically unnecessary for self-hosted applications. If sharding is disabled by default with the ``shard_total`` set to 0. However, if you decide to enable sharding the ``shard_total`` configures the total number of shards used by all instances of the bot and most always be equal to or greater than the number of shards in the ``shards`` list.  The ``shards`` list should contain the shard IDs for each shard the local application should manage.
+    * The ``rsvp_yes``, ``rsvp_no``, and ``rsvp_clear`` are unicode emoticons. If your server does not have the required packages installed, the emoticons may not be processed correctly. If so, use the escaped unicode IDs (``\u2705``, ``\u274c`` and ``\u2754``) instead.
 
 <br />
 
