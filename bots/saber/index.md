@@ -637,4 +637,4 @@ If you are having trouble understanding how this behaves, experiment with differ
 
 <br />
 
-Documentation last updated: 2017-08-06
+Documentation last updated: 2017-08-21
