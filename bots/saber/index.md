@@ -156,6 +156,7 @@ For each of the following commands, ``<argument>`` denotes an argument and ``[ar
   * Ex3: ``!edit 49a83f end 2:15pm``
   * Ex4: ``!edit 80c012 comment remove 1``
   * Ex5: ``!edit aa2134 comment swap 1 2``
+  * Ex6: ``!edit 90199a limit "Yes" 10``
   
    <br />
  
@@ -177,6 +178,9 @@ For each of the following commands, ``<argument>`` denotes an argument and ``[ar
   * Ex2: ``!config #schedule chan general``
   * Ex3: ``!config #schedule clock 12``
   * Ex4: ``!config #schedule remind "30, 10, 5 min"``
+  * Ex5: ``!config #schedule rsvp on``
+  * Ex6: ``!config #schedule rsvp remove "Undecided"``
+  * Ex7: ``!config #schedule rsvp add "Maybe" :thinking:``
   
     <br />
 
@@ -246,6 +250,27 @@ For each of the following commands, ``<argument>`` denotes an argument and ``[ar
   * Ex2: ``!help edit``
 
 <br>
+
+### Configuring RSVP on a Schedule
+
+  Schedules may be configured to allow users to RSVP to events on that schedule. Users can RSVP to an event by adding one of the appropriate reactions to the event's display message (located on the schedule channel). The RSVP groups and the emoticon associated with that RSVP group can be customized.
+
+1. Enable RSVP on the schedule by using the ``config`` command. 
+    * Ex. ``!config #schedule rsvp on``
+    * This should cause three reactions to be added to every event on that schedule. All events' displays should update to show the current RSVP count for the three default RSVP groups: 'Yes', 'No', and 'Undecided'
+    
+2. To replace the RSVP groups with groups of your own, the default groups must be removed. Again the ``config`` must be used to remove the RSVP groups.
+    * Ex. ``!config #schedule rsvp remove "Yes"``
+    
+3. You can now add custom RSVP groups for your schedule using the ``config`` command.
+    * Ex. ``!config #schedule rsvp add "DPS" :crossed_swords:``
+    * When adding RSVP groups, the rsvp 'add' options is used. The first argument after ``add`` needs to be the name of the new RSVP group. Spaces are allowed, but not recommend as the event display looks a bit distorted when spaces are used in the name. The second argument should then be the emoji to use as the reaction for that RSVP group. Both native discord emoticons as well as custom emoticons are acceptable.
+    
+4. For some events it may be desirable to set a limit to the number of individuals who may RSVP for particular group. This can be done using the ``edit`` command.
+    * Ex. ``!edit 0a8119d limit "DPS" 4``
+    * The above command uses the 'limit' option for the ``edit`` command. The first argument after the ``limit`` needs to be the name of the group to add a player limit. The second argument should then be the limit.  The limit MUST be a number/digit and cannot be represented as word (eg. ``two``). There is one exception to this rule, to remove a previously set limit use ``"off"`` instead.
+    
+<br />
 
 ### Synchronize with Google Calendar
 
@@ -350,8 +375,12 @@ The table below details what can be used in the [keyword] and [argument(s)] sect
     <tr>
       <td>comment</td>
       <td>c</td>
-      <td>"add" or "remove" followed by the comment encapsulated in quotations.</td>
+      <td>First argument should be "add", "remove", or "swap". Later arguments are dependent upon the option used. Use the ``help`` command for specifics.</td>
     </tr>
+    <tr>
+      <td>limit</td>
+      <td>l</td>
+      <td>First argument should be the RSVP group's name. Second argument should be the limit.</td>
     <tr>
       <td>quiet-start</td>
       <td>qs</td>
@@ -366,7 +395,11 @@ The table below details what can be used in the [keyword] and [argument(s)] sect
       <td>quiet-remind</td>
       <td>qs</td>
       <td>No arguments. This silences any reminders.</td>
-    </tr>    
+    </tr>
+    <tr>
+      <td>quiet-all</td>
+      <td>qa</td>
+      <td>No arguments. This will enable/disable ALL quiet options.</td>
     <tr>
       <td>image</td>
       <td>im</td>
@@ -384,13 +417,12 @@ The table below details what can be used in the [keyword] and [argument(s)] sect
 <br />
 
 ### Config Command Options
-
 <div style="overflow:auto;"> 
 <table>
   <thead>
     <th>Keyword</th>
     <th>Aliases</th>
-    <th>Values</th>
+    <th>Arguments</th>
   </thead>
   <tbody>
     <tr>
@@ -399,22 +431,22 @@ The table below details what can be used in the [keyword] and [argument(s)] sect
     <tr>
       <td>msg</td>
       <td>m</td>
-      <td>A message format phrase</td>
+      <td>One argument: A message format phrase</td>
     </tr>
     <tr>
       <td>chan</td>
       <td>ch</td>
-      <td>The target channel for event announcements</td>
+      <td>One argument: The target channel for event announcements</td>
     </tr>
     <tr>
       <td>end-msg</td>
       <td>m</td>
-      <td>A message format phrase. This overrides <code>msg</code> for end announcements.</td>
+      <td>One argument: A message format phrase. This overrides <code>msg</code> for end announcements.</td>
     </tr>
     <tr>
       <td>end-chan</td>
       <td>ch</td>
-      <td>The target channel for event announcements. This overrides <code>chan</code> for end announcements.</td>
+      <td>One argument: The target channel for event announcements. This overrides <code>chan</code> for end announcements.</td>
     </tr>
     <tr>
       <td>Reminder Settings</td>
@@ -422,17 +454,17 @@ The table below details what can be used in the [keyword] and [argument(s)] sect
     <tr>
       <td>remind</td>
       <td>r</td>
-      <td>List of comma separated numbers</td>
+      <td>One argument: List of comma separated numbers</td>
     </tr>
     <tr>
       <td>remind-msg</td>
       <td>rm</td>
-      <td>A message format phrase. This overrides <code>msg</code> for reminders.</td>
+      <td>One argument: A message format phrase. This overrides <code>msg</code> for reminders.</td>
     </tr>
     <tr>
       <td>remind-chan</td>
       <td>rch</td>
-      <td>The target channel for event reminders. This overrides <code>chan</code> for reminders.</td>
+      <td>One argument: The target channel for event reminders. This overrides <code>chan</code> for reminders.</td>
     </tr>
     <tr>
       <td>Miscellaneous Schedule Settings</td>
@@ -440,27 +472,22 @@ The table below details what can be used in the [keyword] and [argument(s)] sect
     <tr>
       <td>clock</td>
       <td>cl</td>
-      <td>For 12 hour format use "12", for 24 hour format use "24"</td>
+      <td>One argument: For 12 hour format use "12", for 24 hour format use "24"</td>
     </tr>
     <tr>
       <td>zone</td>
       <td>z</td>
-      <td>A zone from !zones</td>
+      <td>One argument: A zone from !zones</td>
     </tr>  
-    <tr>
-      <td>rsvp</td>
-      <td>rs</td>
-      <td>Use "on" to enable rsvp, "off" to disable rsvp</td>
-    </tr>
     <tr>
       <td>style</td>
       <td>st</td>
-      <td>Use "full" for the full event display, "narrow" for a shortened display format.</td>
+      <td>One argument: Use "full" for the full event display, "narrow" for a shortened display format.</td>
     </tr>  
     <tr>
       <td>sort</td>
       <td>so</td>
-      <td>Use "asc" to auto-sort the entries in ascending order, "desc" for descending order, and "off" to disable auto-sort.</td>
+      <td>One argument: Use "asc" to auto-sort the entries in ascending order, "desc" for descending order, and "off" to disable auto-sort.</td>
     </tr> 
     <tr>
       <td>Schedule Sync Settings</td>
@@ -468,18 +495,35 @@ The table below details what can be used in the [keyword] and [argument(s)] sect
     <tr>
       <td>sync</td>
       <td>s</td>
-      <td>A valid address, anything else will result in "off".</td>
+      <td>One argument: A valid address, anything else will result in "off".</td>
     </tr>
     <tr>
       <td>time</td>
       <td>t</td>
-      <td>The time of day to schedule Google Calendar sync.</td>
+      <td>One argument: The time of day to schedule Google Calendar sync.</td>
     </tr>
     <tr>
       <td>length</td>
       <td>l</td>
-      <td>The number of days to sync from the Google Calendar</td>
+      <td>One argument: The number of days to sync from the Google Calendar</td>
     </tr>
+    <tr>
+      <td>RSVP Settings</td>
+    </tr>
+    <tr>
+      <td>rsvp</td>
+      <td>rs</td>
+      <td>One argument: Use "on" to enable rsvp, "off" to disable rsvp</td>
+    </tr>
+    <tr>
+      <td>rsvp add</td>
+      <td>rs a</td>
+      <td>Two arguments: First argument is the group name, second argument should be an emoji.</td>
+    </tr>
+    <tr>
+      <td>rsvp remove</td>
+      <td>rs r</td>
+      <td>One argument: The name of the group to remove.</td>
   </tbody>
 </table>
 </div>
@@ -637,4 +681,4 @@ If you are having trouble understanding how this behaves, experiment with differ
 
 <br />
 
-Documentation last updated: 2017-08-21
+Documentation last updated: 2017-09-04
