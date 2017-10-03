@@ -62,7 +62,11 @@ Hiding: 1
     </tr>
     <tr>
       <td>sync</td>
-      <td>Sync a schedule to load events from a Google Calendar</td>
+      <td>Sync a schedule to load events from a Google Calendar calendar</td>
+    </tr>
+    <tr>
+      <td>oauth</td>
+      <td>Authorize Saber access to your Google Calendar calendars</td>
     </tr>
     <tr>
       <td>test</td>
@@ -102,7 +106,7 @@ The default command prefix is ``!``, however ``@Saber`` can also be used to trig
     * It is best to always configure your schedule's timezone before adding events.
 
 7. Use ``$create #new_schedule "Hi mom!" 5:45pm`` to create a new event
-    * If no message appears in #new_schedule, check to insure Saber-Bot has read, write, and manage message perms
+    * If no message appears in #new_schedule, check to insure Saber-Bot has read, write, and manage message perms.
     
 8. To delete the test schedule and event use ``$delete #new_schedule`` to remove the schedule.
     * Alternatively, the schedule channel can be manually deleted for the same affect. The same goes for the event messages.
@@ -195,12 +199,25 @@ For each of the following commands, ``<argument>`` denotes an argument and ``[ar
   
   <br />
 
-+ ``!sync <#schedule_channel> <calendar address>``
++ ``!sync <#schedule_channel> [<import|export>] <calendar address>``
 
-  This command will replace all events in the specified channel with events imported from a public google calendar. Up to the next 7 days of events will be imported. To learn more, see the **Synchronize a Schedule with Google Calendar** guide below. The schedule will re-import from the google calendar once per day automatically. While a schedule is synchronizing, the schedule can not be modified and new events may not be added.
+  This command will replace all events in the specified channel with events imported from a public google calendar. Up to the next 7 days of events will be imported. To learn more, see the **Synchronize a Schedule with Google Calendar** guide below. The schedule will re-import from the google calendar once per day automatically. While a schedule is synchronizing, the schedule can not be modified and new events may not be added. If you have authorized the bot access to your Google Account's calendars using the ``oauth`` command, the ``export`` keyword may be used to export events from a Discord schedule to a Google calendar.
 
-  * Ex: ``!sync #schedule [. . .]``
+  * Ex1: ``!sync #schedule [. . .]``
+  * Ex2: ``!sync #schedule import [. . .]``
+  * Ex3: ``!sync #schedule export [. . .]``
+
+  <br />
   
++ ``!oauth [<token>]``
+
+  This command can be used to link a Google Accounts authorization token with your Discord User ID. Linking a token will allow the bot to view and modify public <em>and</em> private calendars. Using the command without any arguments will provide a url link to generate a new Google Accounts access token. After an access token has been created, the token may be provided as an argument to the command to link your account. To remove a previously linked access token, use the **off** keyword instead.
+
+  * Ex1: ``!oauth``
+  * Ex2: ``!oauth ZLjaoaafj_agFff``
+  * Ex3: ``!oauth off``
+
+
   <br />
 
 + ``!zones <filter>``
@@ -213,9 +230,12 @@ For each of the following commands, ``<argument>`` denotes an argument and ``[ar
   
 + ``!test <event_id>``
 
-  The test command will send an test announcement for the event to the bot control channel. The announcement message format is controlled by the schedule to which the event belongs to, and can be changed using the config command.  
+  The test command will send an test announcement for the event to the bot control channel. The announcement message format is controlled by the schedule to which the event belongs to, and can be changed using the config command. The ``remind`` and ``end`` keywords may be used to specify which announcement type's format to test.  
   
   * Ex: ``!test 02ac9b``
+  * Ex: ``!test 02ac9b remind``
+  * Ex: ``!test 02ac9b end``
+
   
   <br />
  
@@ -225,10 +245,10 @@ For each of the following commands, ``<argument>`` denotes an argument and ``[ar
   Mobile discord clients may have trouble rendering the embedded output of this command.  If so, the command 'mode' may be set to mobile by appending ``mobile`` to command arguments. For a view more conducive to copy and pasting the list of RSVPers else where, try the ``id`` mode.
   The output of this command can be filtered by role, user, and type. Reference examples 2 and 3 below to see how this can be done.
   
-  * Ex1: ``!list 39a0da3``
-  * Ex1: ``!list 39a0da3 mobile``
-  * Ex2: ``!list 109ad2a "u: @notem``
-  * Ex3: ``!list 019fa92 "t: yes" "r: @admin"``
+  * Ex1: ``!list 39a0g3``
+  * Ex1: ``!list 390da3 mobile``
+  * Ex2: ``!list 109d2a "u: @notem``
+  * Ex3: ``!list 019a92 "t: yes" "r: @admin"``
   
   <br />
 
@@ -279,12 +299,16 @@ For each of the following commands, ``<argument>`` denotes an argument and ``[ar
  <br />
  <img src="%base_url%/assets/MakePublic.JPG" alt="Make calendar public" style="max-width:90%;">
  <br />
+ 
+ Or, if you wish to keep your calendar private, use the ``oauth`` command to provide access to your Google Account's calendars. For more information, reference the ``oauth`` command documentation.
 
 2. (optional) If you already have a calendar setup, but not yet made it public, you can toggle the calendar's share settings in the 'Calendar settings'>>'Share this calendar tab' It should look something like this: 
   
   <br />
   <img src="%base_url%/assets/ChangeShareSettings.JPG" alt="Change calendar share settings" style="max-width:90%;">
   <br />
+  
+  Again, you may alternatively provide access to a private calendar with the ``oauth`` command.
   
 3. Next, you'll need to find the calendar's public address.  The calendar's public address is listed near the end in the calendar's settings webpage under the 'Calendar details' tab. It should look something like this: 
 
@@ -354,9 +378,30 @@ The table below details what can be used in the [keyword] and [argument(s)] sect
       <td>expire</td>
       <td>ex</td>
       <td>A date in the format of yyyy/mm/dd</td>
-    <tr>
-    <td><em>Edit Command Only</em></td>
     </tr>
+    <tr>
+      <td>image</td>
+      <td>im</td>
+      <td>Image url to attach to the event's schedule display</td>
+    </tr> 
+    <tr>
+      <td>thumbnail</td>
+      <td>th</td>
+      <td>Thumbnail url to attach to the event's schedule display</td>
+    </tr> 
+  </tbody>
+</table>
+</div>
+
+##### Edit Command Exclusive
+<div>
+<table>
+  <thead>
+    <th>Keyword</th>
+    <th>Aliases</th>
+    <th>Values</th>
+  </thead>
+  <tbody>
     <tr>
       <td>title</td>
       <td>t</td>
@@ -400,16 +445,6 @@ The table below details what can be used in the [keyword] and [argument(s)] sect
       <td>quiet-all</td>
       <td>qa</td>
       <td>No arguments. This will enable/disable ALL quiet options.</td>
-    <tr>
-      <td>image</td>
-      <td>im</td>
-      <td>Image url to attach to the event's schedule display</td>
-    </tr> 
-    <tr>
-      <td>thumbnail</td>
-      <td>th</td>
-      <td>Thumbnail url to attach to the event's schedule display</td>
-    </tr> 
   </tbody>
 </table>
 </div>
@@ -452,7 +487,12 @@ The table below details what can be used in the [keyword] and [argument(s)] sect
       <td>Reminder Settings</td>
     </tr>
     <tr>
-      <td>remind</td>
+      <td>reminders</td>
+      <td>r</td>
+      <td>One argument: List of comma separated numbers</td>
+    </tr>
+    <tr>
+      <td>end-remind</td>
       <td>r</td>
       <td>One argument: List of comma separated numbers</td>
     </tr>
@@ -565,19 +605,22 @@ The table below details what can be used in the [keyword] and [argument(s)] sect
 
 <br>
 
-#### Setting a Custom Announcement Message
-Every schedule channel is configured with it's own message to announce to a specified channel when an event begins or ends. With the ``config`` command the message can be configured.
+### Custom Announcement Messages
+Every schedule channel is configured with it's own message to announce to a specified channel when an event begins or ends. With the ``config`` command, a custom message can be configured.
 
-Saber will announce the message string verbatum unless a '%' character is encountered.  When a '%' character is encountered, Saber will read the next character(s) and substitute the token with whatever value is associated that character combination.
+Saber will announce the message string verbatum unless a **%** character is encountered.  When a **%** character is encountered, Saber will read the next character(s) and substitute the token with whatever value is associated that character combination.
+
+Advanced substition strings may also be used to further customize the announcement message. An advanced substitution string follows the form **${..}**. Advanced subsitution strings are a work in progress and are subject to change.
 
 If you are having trouble understanding how this behaves, experiment with different message formats using the ``config`` and ``test`` commands.
 
+#### Basic Substitutions
 <div style="overflow:auto;"> 
 <table>
   <thead>
-    <th>% token</th>
-    <th>Text Substituted in</th>
-    <th>Example [<code>msg</code>] Format</th>
+    <th>%-Token</th>
+    <th>Text Substitution</th>
+    <th>Example</th>
   </thead>
   <tbody>
     <tr>
@@ -659,6 +702,60 @@ If you are having trouble understanding how this behaves, experiment with differ
 </table>
 </div>
 
+#### Advanced Substitutions
+<div style="overflow:auto;"> 
+<table>
+  <thead>
+    <th>%-String</th>
+    <th>Text Substitution</th>
+  </thead>
+  <tbody>
+    <tr>
+      <td>%{rsvp <em>Name</em>}</td>
+      <td>Inserts the RSVP user count for the *Name* category</td>
+    </tr>
+    <tr>
+      <td>%{[..]s}</td>
+      <td>If the event is starting, substitute in the text inside the brackets</td>
+    </tr>
+    <tr>
+      <td>%{[..]e}</td>
+      <td>If the event is ending, substitute in the text inside the brackets</td>
+    </tr>
+    <tr>
+      <td>%{[..]c<em>n</em>[..]}</td>
+      <td>If the nth comment exists, substitute in the text inside the brackets</td>
+    </tr>
+    <tr>
+      <td>%{[..]m[..]}</td>
+      <td>If the announcement is a reminder, substitute in the text inside the brackets</td>
+    </tr>
+    <tr>
+      <td>%{[..]u[..]}</td>
+      <td>If the event has a title URL, substitute in the text inside the brackets</td>
+    </tr>
+    <tr>
+      <td>%{[..]v[..]}</td>
+      <td>If the event has an image, substitute in the text inside the brackets</td>
+    </tr>
+    <tr>
+      <td>%{[..]w[..]}</td>
+      <td>If the event has an thumbnail, substitute in the text inside the brackets</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+##### Usage Examples
+* <code>@here %t %a: %{rsvp Yes} %{rsvp No}</code>
+* <code>@here %t %{[has started!]s}</code>
+* <code>@here %{[In ]m[ minutes]} %t ${[closes]e}</code>
+* <code>@everyone %t %{c1}</code>
+* <code>@here %t %{[in ]h[ hours!]}</code>
+* <code>@here %t %b %{[Please visit ]u}</code>
+* <code>@here %t %b %{[Image: ]v}</code>
+* <code>@here %t %b %{[Thumbnail: ]w}</code>
+
 <br>
 
 ### Self-Hosting Saber Bot
@@ -681,4 +778,4 @@ If you are having trouble understanding how this behaves, experiment with differ
 
 <br />
 
-Documentation last updated: 2017-09-04
+Documentation last updated: 2017-10-03
