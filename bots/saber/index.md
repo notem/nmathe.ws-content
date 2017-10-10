@@ -80,6 +80,10 @@ Hiding: 1
       <td>list</td>
       <td>View list of users who have rsvp'ed for an event</td>
     </tr>
+    <tr>
+      <td>skip</td>
+      <td>Cancel the next occurrence of an event</td>
+    </tr>
   </tbody>
 </table>
 </div>
@@ -232,9 +236,9 @@ For each of the following commands, ``<argument>`` denotes an argument and ``[ar
 
   The test command will send an test announcement for the event to the bot control channel. The announcement message format is controlled by the schedule to which the event belongs to, and can be changed using the config command. The ``remind`` and ``end`` keywords may be used to specify which announcement type's format to test.  
   
-  * Ex: ``!test 02ac9b``
-  * Ex: ``!test 02ac9b remind``
-  * Ex: ``!test 02ac9b end``
+  * Ex1: ``!test 02ac9b``
+  * Ex2: ``!test 02ac9b remind``
+  * Ex3: ``!test 02ac9b end``
 
   
   <br />
@@ -268,6 +272,14 @@ For each of the following commands, ``<argument>`` denotes an argument and ``[ar
   
   * Ex1: ``!help``
   * Ex2: ``!help edit``
+
+<br>
+
++ ``!skip <id>``
+
+  This command cause an event to 'skip' over the next scheduled occurrence of the event. If the event is scheduled to repeat, the event will be rescheduled to the time of next recurrence. If the event is not scheduled to repeat, the event is will deleted.
+  
+  * Ex: ``!skip a09fji``
 
 <br>
 
@@ -336,57 +348,48 @@ So, a create command should look something like ``!create <#channel> <title> <st
 
 The table below details what can be used in the [keyword] and [argument(s)] sections of the command
 
+##### Shared Keywords
 <div style="overflow:auto;"> 
 <table>
   <thead>
     <th>Keyword</th>
-    <th>Aliases</th>
     <th>Values</th>
   </thead>
   <tbody>
     <tr>
       <td>repeat</td>
-      <td>r</td>
       <td>A comma separated list of days of week to repeat</td>
     </tr>
     <tr>
       <td>interval</td>
-      <td>i</td>
       <td>A (reasonably sized) number</td>
     </tr>
     <tr>
       <td>date</td>
-      <td>d</td>
       <td>A date in the format of yyyy/mm/dd</td>
     </tr>
     <tr>
       <td>start-date</td>
-      <td>sd</td>
       <td>A date in the format of yyyy/mm/dd</td>
     </tr>
     <tr>
       <td>end-date</td>
-      <td>ed</td>
       <td>A date in the format of yyyy/mm/dd</td>
     </tr>
     <tr>
       <td>url</td>
-      <td>u</td>
       <td>The url address for the event message's title</td>
     </tr>
     <tr>
       <td>expire</td>
-      <td>ex</td>
       <td>A date in the format of yyyy/mm/dd</td>
     </tr>
     <tr>
       <td>image</td>
-      <td>im</td>
       <td>Image url to attach to the event's schedule display</td>
     </tr> 
     <tr>
       <td>thumbnail</td>
-      <td>th</td>
       <td>Thumbnail url to attach to the event's schedule display</td>
     </tr> 
   </tbody>
@@ -398,52 +401,42 @@ The table below details what can be used in the [keyword] and [argument(s)] sect
 <table>
   <thead>
     <th>Keyword</th>
-    <th>Aliases</th>
     <th>Values</th>
   </thead>
   <tbody>
     <tr>
       <td>title</td>
-      <td>t</td>
       <td>The name given to the event</td>
     </tr>
     <tr>
       <td>start</td>
-      <td>s</td>
       <td>The time of day the event begins, formatted as hh:mm</td>
     </tr>
     <tr>
       <td>end</td>
-      <td>e</td>
       <td>The time of day the event ends, formatted as hh:mm</td>
     </tr>
     <tr>
       <td>comment</td>
-      <td>c</td>
       <td>First argument should be "add", "remove", or "swap". Later arguments are dependent upon the option used. Use the ``help`` command for specifics.</td>
     </tr>
     <tr>
       <td>limit</td>
-      <td>l</td>
       <td>First argument should be the RSVP group's name. Second argument should be the limit.</td>
     <tr>
       <td>quiet-start</td>
-      <td>qs</td>
       <td>No arguments. This silences the start announcement.</td>
     </tr>
     <tr>
       <td>quiet-end</td>
-      <td>qs</td>
       <td>No arguments. This silences the end announcement.</td>
     </tr>
     <tr>
       <td>quiet-remind</td>
-      <td>qs</td>
       <td>No arguments. This silences any reminders.</td>
     </tr>
     <tr>
       <td>quiet-all</td>
-      <td>qa</td>
       <td>No arguments. This will enable/disable ALL quiet options.</td>
   </tbody>
 </table>
@@ -452,118 +445,126 @@ The table below details what can be used in the [keyword] and [argument(s)] sect
 <br />
 
 ### Config Command Options
+
+#### Announcement Settings
 <div style="overflow:auto;"> 
 <table>
   <thead>
     <th>Keyword</th>
-    <th>Aliases</th>
     <th>Arguments</th>
   </thead>
   <tbody>
     <tr>
-      <td>Announcement Settings</td>
-    </tr>
-    <tr>
       <td>msg</td>
-      <td>m</td>
-      <td>One argument: A message format phrase</td>
+      <td>A message format phrase</td>
     </tr>
     <tr>
       <td>chan</td>
-      <td>ch</td>
-      <td>One argument: The target channel for event announcements</td>
+      <td>The target channel for event announcements</td>
     </tr>
     <tr>
       <td>end-msg</td>
-      <td>m</td>
-      <td>One argument: A message format phrase. This overrides <code>msg</code> for end announcements.</td>
+      <td>A message format phrase.<br />This overrides <code>msg</code> for end announcements.</td>
     </tr>
     <tr>
       <td>end-chan</td>
-      <td>ch</td>
-      <td>One argument: The target channel for event announcements. This overrides <code>chan</code> for end announcements.</td>
+      <td>The target channel for event announcements.<br />This overrides <code>chan</code> for end announcements.</td>
     </tr>
-    <tr>
-      <td>Reminder Settings</td>
-    </tr>
+  </tbody>
+</table>
+  
+#### Reminder Settings
+<table>
+  <thead>
+    <th>Keyword</th>
+    <th>Arguments</th>
+  </thead>
+  <tbody>
     <tr>
       <td>reminders</td>
-      <td>r</td>
-      <td>One argument: List of comma separated numbers</td>
+      <td>List of comma separated numbers</td>
     </tr>
     <tr>
       <td>end-remind</td>
-      <td>r</td>
-      <td>One argument: List of comma separated numbers</td>
+      <td>List of comma separated numbers</td>
     </tr>
     <tr>
       <td>remind-msg</td>
-      <td>rm</td>
-      <td>One argument: A message format phrase. This overrides <code>msg</code> for reminders.</td>
+      <td>A message format phrase.<br />This overrides <code>msg</code> for reminders.</td>
     </tr>
     <tr>
       <td>remind-chan</td>
-      <td>rch</td>
-      <td>One argument: The target channel for event reminders. This overrides <code>chan</code> for reminders.</td>
+      <td>The target channel for event reminders.<br />This overrides <code>chan</code> for reminders.</td>
     </tr>
-    <tr>
-      <td>Miscellaneous Schedule Settings</td>
-    </tr>
+  </tbody>
+</table>
+
+#### Misc Settings
+<table>
+  <thead>
+    <th>Keyword</th>
+    <th>Arguments</th>
+  </thead>
+  <tbody>
     <tr>
       <td>clock</td>
-      <td>cl</td>
-      <td>One argument: For 12 hour format use "12", for 24 hour format use "24"</td>
+      <td>For 12 hour format use "12", for 24 hour format use "24"</td>
     </tr>
     <tr>
       <td>zone</td>
-      <td>z</td>
-      <td>One argument: A zone from !zones</td>
+      <td>A zone from !zones</td>
     </tr>  
     <tr>
       <td>style</td>
-      <td>st</td>
-      <td>One argument: Use "full" for the full event display, "narrow" for a shortened display format.</td>
+      <td>Use "full" for the full event display, <br /> "narrow" for a shortened display format.</td>
     </tr>  
     <tr>
       <td>sort</td>
-      <td>so</td>
-      <td>One argument: Use "asc" to auto-sort the entries in ascending order, "desc" for descending order, and "off" to disable auto-sort.</td>
+      <td>Use "asc" to auto-sort the entries in ascending order, <br />"desc" for descending order, or "off" to disable auto-sort</td>
     </tr> 
-    <tr>
-      <td>Schedule Sync Settings</td>
-    </tr>
+  </tbody>
+</table>
+
+#### Sync Settings
+<table>
+  <thead>
+    <th>Keyword</th>
+    <th>Arguments</th>
+  </thead>
+  <tbody>
     <tr>
       <td>sync</td>
-      <td>s</td>
-      <td>One argument: A valid address, anything else will result in "off".</td>
+      <td>A valid address, anything else will result in "off".</td>
     </tr>
     <tr>
       <td>time</td>
-      <td>t</td>
-      <td>One argument: The time of day to schedule Google Calendar sync.</td>
+      <td>The time of day to schedule Google Calendar sync.</td>
     </tr>
     <tr>
       <td>length</td>
-      <td>l</td>
-      <td>One argument: The number of days to sync from the Google Calendar</td>
+      <td>The number of days to sync from the Google Calendar</td>
     </tr>
-    <tr>
-      <td>RSVP Settings</td>
-    </tr>
+  </tbody>
+</table>
+
+#### RSVP Settings
+<table>
+  <thead>
+    <th>Keyword</th>
+    <th>Arguments</th>
+  </thead>
+  <tbody>
     <tr>
       <td>rsvp</td>
-      <td>rs</td>
-      <td>One argument: Use "on" to enable rsvp, "off" to disable rsvp</td>
+      <td>Use "on" to enable rsvp, "off" to disable rsvp</td>
     </tr>
     <tr>
       <td>rsvp add</td>
-      <td>rs a</td>
-      <td>Two arguments: First argument is the group name, second argument should be an emoji.</td>
+      <td>First argument is the group name,<br />second argument should be an emoji.</td>
     </tr>
     <tr>
       <td>rsvp remove</td>
-      <td>rs r</td>
-      <td>One argument: The name of the group to remove.</td>
+      <td>The name of the group to remove.</td>
   </tbody>
 </table>
 </div>
@@ -575,28 +576,23 @@ The table below details what can be used in the [keyword] and [argument(s)] sect
 <table>
   <thead>
     <th>Keyword</th>
-    <th>Aliases</th>
-    <th>Values</th>
+    <th>Arguments</th>
   </thead>
   <tbody>
     <tr>
       <td>prefix</td>
-      <td>p</td>
       <td>The prefix used to trigger bot commands.</td>
     </tr>
     <tr>
       <td>control</td>
-      <td>c</td>
       <td>The designated channel to listen for restricted commands.</td>
     </tr>
     <tr>
       <td>restrict</td>
-      <td>r</td>
-      <td>The name of the command to restrict. Do not include the command prefix.</td>
+      <td>The name of the command to restrict.<br />Do not include the command prefix.</td>
     </tr>
     <tr>
       <td>unrestrict</td>
-      <td>u</td>
       <td>The name of the command to set as unrestricted.</td>
     </tr>
   </tbody>
@@ -620,87 +616,100 @@ If you are having trouble understanding how this behaves, experiment with differ
   <thead>
     <th>%-Token</th>
     <th>Text Substitution</th>
-    <th>Example</th>
   </thead>
   <tbody>
     <tr>
       <td>%t</td>
       <td>Title of event announced</td>
-      <td><code>@here Event: %t</code></td>
     </tr>
     <tr>
       <td>%c[n]</td>
       <td>The [n]th comment of the event</td>
-      <td><code>@everyone %t %c1</code></td>
     </tr>
     <tr>
       <td>%f</td>
-      <td>All comments on the event. Each comment appears on separate line.</td>
-      <td><code>@everyone %f</code></td>
+      <td>All comments on the event.<br />Each comment appears on separate line.</td>
     </tr>
     <tr>
       <td>%a</td>
       <td>"begins [in x minutes]" or "ends [in x minutes]"</td>
-      <td><code>@here %t %a</code></td>
     </tr>
     <tr>
       <td>%b</td>
       <td>"begins" or "ends"</td>
-      <td><code>@here %t %b</code>></td>
     </tr>
     <tr>
       <td>%x</td>
       <td>"in [x] minutes"</td>
-      <td><code>@here %x %t %b</code></td>
     </tr>
     <tr>
       <td>%i</td>
       <td>The ID of the event</td>
-      <td><code>@here **%t** [%i] %a</code></td>
+    </tr>
+    <tr>
+      <td>%s</td>
+      <td>The start time of the event</td>
+    </tr>
+    <tr>
+      <td>%e</td>
+      <td>The end time of the event</td>
     </tr>
     <tr>
       <td>%d</td>
       <td>The day of the month (number) the event starts</td>
-      <td><code>@here %t %b on the %dth</code></td>
     </tr>
     <tr>
       <td>%D</td>
       <td>The day of the week (word) the event starts</td>
-      <td><code>@here %t %b on %D</code></td>
     </tr>
     <tr>
       <td>%m</td>
       <td>The month (number) the event starts</td>
-      <td><code>@here %t %b on %m/%d</code></td>
     </tr>
     <tr>
       <td>%M</td>
       <td>The month (word) the event starts</td>
-      <td><code>@here %t %b on %dth of %M</code></td>
     </tr>
     <tr>
       <td>%y</td>
       <td>The year the event starts</td>
-      <td><code>@here %t %b on %y-%m-%d</code></td>
     </tr>
     <tr>
       <td>%u</td>
       <td>The URL used by the title of the event</td>
-      <td><code>@here %t %b : %u</code></td>
     </tr>
     <tr>
       <td>%v</td>
       <td>The image URL of the event</td>
-      <td><code>@here %t %b : %v</code></td>
     </tr>
     <tr>
       <td>%w</td>
       <td>The thumbnail URL of the event</td>
-      <td><code>@here %t %b : %w</code></td>
+    </tr>
+    <tr>
+      <td>%n</td>
+      <td>A new line</td>
     </tr>
   </tbody>
 </table>
 </div>
+
+##### Usage Examples
+* <code>@here Event: %t</code>
+* <code>@everyone %t %c1</code>
+* <code>@everyone %f</code>
+* <code>@here %t %a</code>
+* <code>@here %t %b</code>
+* <code>@here %x %t %b</code>
+* <code>@here **%t** [%i] %a</code>
+* <code>@here %t %b on the %dth</code>
+* <code>@here %t %b on %D</code>
+* <code>@here %t %b on %m/%d</code>
+* <code>@here %t %b on %dth of %M</code>
+* <code>@here %t %b on %y-%m-%d</code>
+* <code>@here %t %b : %u</code>
+* <code>@here %t %b : %v</code>
+* <code>@here %t %b : %w</code>
 
 #### Advanced Substitutions
 <div style="overflow:auto;"> 
@@ -778,4 +787,4 @@ If you are having trouble understanding how this behaves, experiment with differ
 
 <br />
 
-Documentation last updated: 2017-10-03
+Documentation last updated: 2017-10-10
