@@ -346,7 +346,7 @@ For each of the following commands, ``<argument>`` denotes an argument and ``[ar
 
 <br />
 
-#### Additional Configuration Info
+### Synchronizing Additional Parameters
 
 Google Calendar events can be configured to sync some additional information to the Saber's discord schedules by including specific information in the description of the Google Calendar event. Special parameters are denoted by a special prefix string. When configure additional parameters, each parameter should be on it's own line in the Google Event's description.
 
@@ -485,7 +485,7 @@ The table below details what can be used in the [keyword] and [argument(s)] sect
 
 ### Config Command Options
 
-#### Announcement Settings
+##### Announcement Settings
 <table>
   <thead>
     <th>Keyword</th>
@@ -511,7 +511,7 @@ The table below details what can be used in the [keyword] and [argument(s)] sect
   </tbody>
 </table>
   
-#### Reminder Settings
+##### Reminder Settings
 <table>
   <thead>
     <th>Keyword</th>
@@ -537,7 +537,7 @@ The table below details what can be used in the [keyword] and [argument(s)] sect
   </tbody>
 </table>
 
-#### Misc Settings
+##### Misc Settings
 <table>
   <thead>
     <th>Keyword</th>
@@ -563,7 +563,7 @@ The table below details what can be used in the [keyword] and [argument(s)] sect
   </tbody>
 </table>
 
-#### Sync Settings
+##### Sync Settings
 <table>
   <thead>
     <th>Keyword</th>
@@ -585,7 +585,7 @@ The table below details what can be used in the [keyword] and [argument(s)] sect
   </tbody>
 </table>
 
-#### RSVP Settings
+##### RSVP Settings
 <table>
   <thead>
     <th>Keyword</th>
