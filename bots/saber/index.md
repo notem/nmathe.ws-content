@@ -84,6 +84,14 @@ Hiding: 1
       <td>skip</td>
       <td>Cancel the next occurrence of an event</td>
     </tr>
+    <tr>
+      <td>schedules</td>
+      <td>List guild schedules</td>
+    </tr>
+    <tr>
+      <td>events</td>
+      <td>List guild events</td>
+    </tr>
   </tbody>
 </table>
 </div>
@@ -290,14 +298,14 @@ For each of the following commands, ``<argument>`` denotes an argument and ``[ar
 1. Enable RSVP on the schedule by using the ``config`` command. 
     * Ex. ``!config #schedule rsvp on``
     * This should cause three reactions to be added to every event on that schedule. All events' displays should update to show the current RSVP count for the three default RSVP groups: 'Yes', 'No', and 'Undecided'
-    
+    <br />
 2. To replace the RSVP groups with groups of your own, the default groups must be removed. Again the ``config`` must be used to remove the RSVP groups.
     * Ex. ``!config #schedule rsvp remove "Yes"``
-    
+    <br />
 3. You can now add custom RSVP groups for your schedule using the ``config`` command.
     * Ex. ``!config #schedule rsvp add "DPS" :crossed_swords:``
     * When adding RSVP groups, the rsvp 'add' options is used. The first argument after ``add`` needs to be the name of the new RSVP group. Spaces are allowed, but not recommend as the event display looks a bit distorted when spaces are used in the name. The second argument should then be the emoji to use as the reaction for that RSVP group. Both native discord emoticons as well as custom emoticons are acceptable.
-    
+    <br />
 4. For some events it may be desirable to set a limit to the number of individuals who may RSVP for particular group. This can be done using the ``edit`` command.
     * Ex. ``!edit 0a8119d limit "DPS" 4``
     * The above command uses the 'limit' option for the ``edit`` command. The first argument after the ``limit`` needs to be the name of the group to add a player limit. The second argument should then be the limit.  The limit MUST be a number/digit and cannot be represented as word (eg. ``two``). There is one exception to this rule, to remove a previously set limit use ``"off"`` instead.
@@ -336,9 +344,44 @@ For each of the following commands, ``<argument>`` denotes an argument and ``[ar
 
 5. If you wish to unsync the channel from your google calendar, use the ``config`` command (ex. ``!config #channel sync off``).
 
-Google Calendar events can be configured to sync some additional information to the Saber's discord schedules by including specific information in the description of the Google Calendar event.
+<br />
+
+#### Additional Configuration Info
+
+Google Calendar events can be configured to sync some additional information to the Saber's discord schedules by including specific information in the description of the Google Calendar event. Special parameters are denoted by a special prefix string. When configure additional parameters, each parameter should be on it's own line in the Google Event's description.
+
+<table>
+  <thead>
+    <th>Prefix</th>
+    <th>Suffix</th>
+  </thead>
+  <tbody>
+    <tr>
+      <td>image:</td>
+      <td>Url to an image</td>
+    </tr>
+    <tr>
+      <td>thumbnail:</td>
+      <td>Url to an thumbnail</td>
+    </tr>
+    <tr>
+      <td>url:</td>
+      <td>Valid url to use as event's title url</td>
+    </tr>
+    <tr>
+      <td>limit:</td>
+      <td>The name of a RSVP category and a limit to apply,<br />separated by a space</td>
+    </tr>
+  </tbody>
+</table>
 
 <br />
+
+###### Examples
+* <code>thumbnail: https://nmathe.ws/thumbnail.png</code
+* <code>image: https://nmathe.ws/image.jpg</code
+* <code>url: https://nmathe.ws</code
+* <code>limit: Yes 8</code
 
 ### Create and Edit Options
 An edit command should be formatted like ``!edit <ID> <keyword> <argument(s)>``
@@ -349,7 +392,6 @@ So, a create command should look something like ``!create <#channel> <title> <st
 The table below details what can be used in the [keyword] and [argument(s)] sections of the command
 
 ##### Shared Keywords
-<div style="overflow:auto;"> 
 <table>
   <thead>
     <th>Keyword</th>
@@ -394,10 +436,8 @@ The table below details what can be used in the [keyword] and [argument(s)] sect
     </tr> 
   </tbody>
 </table>
-</div>
 
 ##### Edit Command Exclusive
-<div>
 <table>
   <thead>
     <th>Keyword</th>
@@ -418,36 +458,34 @@ The table below details what can be used in the [keyword] and [argument(s)] sect
     </tr>
     <tr>
       <td>comment</td>
-      <td>First argument should be "add", "remove", or "swap". Later arguments are dependent upon the option used. Use the ``help`` command for specifics.</td>
+      <td>First argument should be "add", "remove", or "swap".<br />Later arguments are dependent upon the option used.<br />Use the ``help`` command for specifics.</td>
     </tr>
     <tr>
       <td>limit</td>
       <td>First argument should be the RSVP group's name. Second argument should be the limit.</td>
     <tr>
       <td>quiet-start</td>
-      <td>No arguments. This silences the start announcement.</td>
+      <td>No arguments.<br />This silences the start announcement.</td>
     </tr>
     <tr>
       <td>quiet-end</td>
-      <td>No arguments. This silences the end announcement.</td>
+      <td>No arguments.<br />This silences the end announcement.</td>
     </tr>
     <tr>
       <td>quiet-remind</td>
-      <td>No arguments. This silences any reminders.</td>
+      <td>No arguments.<br />This silences any reminders.</td>
     </tr>
     <tr>
       <td>quiet-all</td>
-      <td>No arguments. This will enable/disable ALL quiet options.</td>
+      <td>No arguments.<br />This will enable/disable ALL quiet options.</td>
   </tbody>
 </table>
-</div>
 
 <br />
 
 ### Config Command Options
 
 #### Announcement Settings
-<div style="overflow:auto;"> 
 <table>
   <thead>
     <th>Keyword</th>
@@ -567,12 +605,10 @@ The table below details what can be used in the [keyword] and [argument(s)] sect
       <td>The name of the group to remove.</td>
   </tbody>
 </table>
-</div>
 
 <br />
 
 ### Guild Command Options
-<div style="overflow:auto;"> 
 <table>
   <thead>
     <th>Keyword</th>
@@ -597,7 +633,6 @@ The table below details what can be used in the [keyword] and [argument(s)] sect
     </tr>
   </tbody>
 </table>
-</div>
 
 <br>
 
@@ -611,7 +646,6 @@ Advanced substition strings may also be used to further customize the announceme
 If you are having trouble understanding how this behaves, experiment with different message formats using the ``config`` and ``test`` commands.
 
 #### Basic Substitutions
-<div style="overflow:auto;"> 
 <table>
   <thead>
     <th>%-Token</th>
@@ -692,7 +726,6 @@ If you are having trouble understanding how this behaves, experiment with differ
     </tr>
   </tbody>
 </table>
-</div>
 
 ##### Usage Examples
 * <code>@here Event: %t</code>
@@ -711,8 +744,9 @@ If you are having trouble understanding how this behaves, experiment with differ
 * <code>@here %t %b : %v</code>
 * <code>@here %t %b : %w</code>
 
+<br />
+
 #### Advanced Substitutions
-<div style="overflow:auto;"> 
 <table>
   <thead>
     <th>%-String</th>
@@ -753,7 +787,6 @@ If you are having trouble understanding how this behaves, experiment with differ
     </tr>
   </tbody>
 </table>
-</div>
 
 ##### Usage Examples
 * <code>@here %t %a: %{rsvp Yes} %{rsvp No}</code>
@@ -765,7 +798,8 @@ If you are having trouble understanding how this behaves, experiment with differ
 * <code>@here %t %b %{[Image: ]v}</code>
 * <code>@here %t %b %{[Thumbnail: ]w}</code>
 
-<br>
+<br />
+<br />
 
 ### Self-Hosting Saber Bot
 
