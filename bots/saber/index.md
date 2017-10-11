@@ -462,7 +462,7 @@ The table below details what can be used in the [keyword] and [argument(s)] sect
     </tr>
     <tr>
       <td>limit</td>
-      <td>First argument should be the RSVP group's name. Second argument should be the limit.</td>
+      <td>First argument should be the RSVP group's name.<br />Second argument should be the limit.</td>
     <tr>
       <td>quiet-start</td>
       <td>No arguments.<br />This silences the start announcement.</td>
