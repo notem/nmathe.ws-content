@@ -378,10 +378,10 @@ Google Calendar events can be configured to sync some additional information to 
 <br />
 
 ###### Examples
-* <code>thumbnail: https://nmathe.ws/thumbnail.png</code
-* <code>image: https://nmathe.ws/image.jpg</code
-* <code>url: https://nmathe.ws</code
-* <code>limit: Yes 8</code
+* <code>thumbnail: https://nmathe.ws/thumbnail.png</code>
+* <code>image: https://nmathe.ws/image.jpg</code>
+* <code>url: https://nmathe.ws</code>
+* <code>limit: Yes 8</code>
 
 ### Create and Edit Options
 An edit command should be formatted like ``!edit <ID> <keyword> <argument(s)>``
